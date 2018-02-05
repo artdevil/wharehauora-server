@@ -21,7 +21,7 @@ gem 'pundit-resources'
 # gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '< 1.0.0'
 
 # for logins
 gem 'devise'
@@ -76,7 +76,7 @@ group :development, :test do
   gem 'byebug'
 
   # code style
-  gem 'haml_lint', '0.25.1', require: false
+  gem 'haml_lint', '0.26.0', require: false
   gem 'rubocop', '0.49.1', require: false
   gem 'scss_lint', require: false
 
