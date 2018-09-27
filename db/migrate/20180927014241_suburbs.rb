@@ -1,4 +1,4 @@
-class Suburbs < ActiveRecord::Migration[4.2]
+class Suburbs < ActiveRecord::Migration[5.1]
   def change
     create_table :suburbs do |t|
       t.text :name
