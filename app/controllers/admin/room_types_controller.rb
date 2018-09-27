@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 class Admin::RoomTypesController < Admin::AdminController
+  respond_to :html
   before_action :set_room_type, only: %i[show edit update destroy]
 
   def index
     authorize :room_type
-    @room_types = policy_scope RoomType.all.order(:name)
+    @room_types = policy_scope(RoomType.all).order(:name)
+    respond_with :admin, @room_types
   end
 
   def edit; end
 
   def update
-    authorize :room_type
-    @room_type.update!(room_type_params)
-    redirect_to admin_room_types_path
+    @room_type.update(room_type_params)
+    respond_with(:admin, @room_type, location: admin_room_types_path)
   end
 
   def new
@@ -23,8 +24,8 @@ class Admin::RoomTypesController < Admin::AdminController
 
   def create
     authorize :room_type
-    RoomType.create(room_type_params)
-    redirect_to admin_room_types_path
+    @room_type = RoomType.create(room_type_params)
+    respond_with(:admin, @room_type, location: admin_room_types_path)
   end
 
   def destroy
@@ -32,7 +33,7 @@ class Admin::RoomTypesController < Admin::AdminController
       Room.where(room_type: @room_type).update_all(room_type_id: nil)
       @room_type.destroy
     end
-    redirect_to admin_room_types_path
+    respond_with(:admin, @room_type, location: admin_room_types_path)
   end
 
   private

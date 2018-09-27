@@ -19,23 +19,18 @@ class HomesController < ApplicationController
   end
 
   def new
-    authorize :home
     @home = Home.new
+    authorize @home
     respond_with(@home)
   end
 
   # rubocop:disable Metrics/AbcSize
   def create
-    # suburb = find_or_create_suburb home_params['home_suburb_name']
-    # params[:home].delete :home_suburb_name
-    # @home = Home.new(home_params.merge(owner_id: current_user.id, suburb_id: suburb&.id))
-
     @home = Home.new(home_params)
     authorize @home
     invite_new_owner
     @home.save
-
-    respond_with(@home)
+    respond_with(@home, location: home_rooms_path(@home))
   end
   # rubocop:enable Metrics/AbcSize
 

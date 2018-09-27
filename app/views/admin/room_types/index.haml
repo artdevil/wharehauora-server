@@ -1,33 +1,29 @@
-%section.card
-
-
-  %h2
-    add new room_type
-  %p
-    = form_for RoomType.new, url: { action: 'create' } do |f|
-      = render 'form', f: f
+- content_for(:title) do
+  Admin - Room Types
 
 %section.card
   %header
-    %h2 Room types
-  %table.pure-table
+    %h2 Room Types
+  %table
     %thead
       %tr
         %th Name
         %th Min temp
         %th Max temp
-    - @room_types.order(:name).each do |ht|
-      %tr
-        %td= ht.name
-        %td= ht.min_temperature
-        %td= ht.max_temperature
-        %td
-          = link_to edit_admin_room_type_path(ht) do
-            edit
-            = fa_icon 'edit'
-        %td
-          = link_to admin_room_type_path(ht),
-            method: :delete,
-            data: { confirm: 'delete this room_type?' } do
-            delete
-            = fa_icon 'trash'
+    %tbody
+      - @room_types.order(:name).each do |room_type|
+        %tr
+          %td= room_type.name
+          %td
+            = display_reading(Reading.new(value: room_type.min_temperature, key: 'temperature'))
+          %td
+            = display_reading(Reading.new(value: room_type.max_temperature, key: 'temperature'))
+          %td.actions
+            - if policy(room_type).edit?
+              = render 'common/buttons/edit', link_path: edit_admin_room_type_path(room_type)
+          %td.actions
+            - if policy(room_type).edit?
+              = render 'common/buttons/delete', link_path: admin_room_type_path(room_type)
+
+- if policy(:room_type).new?
+  = render 'common/buttons/add', link_path: new_admin_room_type_path
