@@ -190,8 +190,8 @@ CREATE TABLE public.homes (
     home_type_id integer,
     rooms_count integer,
     sensors_count integer,
-    suburb_id integer,
-    gateway_mac_address character varying
+    gateway_mac_address character varying,
+    suburb_id integer
 );
 
 
@@ -474,6 +474,37 @@ ALTER SEQUENCE public.readings_id_seq OWNED BY public.readings.id;
 
 
 --
+-- Name: regions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.regions (
+    id bigint NOT NULL,
+    name text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: regions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.regions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: regions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.regions_id_seq OWNED BY public.regions.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -626,10 +657,10 @@ ALTER SEQUENCE public.sensors_id_seq OWNED BY public.sensors.id;
 --
 
 CREATE TABLE public.suburbs (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name text,
-    currenttemperature double precision,
-    currenthumidity double precision,
+    town_city text,
+    region_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -640,7 +671,6 @@ CREATE TABLE public.suburbs (
 --
 
 CREATE SEQUENCE public.suburbs_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -820,6 +850,13 @@ ALTER TABLE ONLY public.readings ALTER COLUMN id SET DEFAULT nextval('public.rea
 
 
 --
+-- Name: regions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.regions ALTER COLUMN id SET DEFAULT nextval('public.regions_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -962,6 +999,14 @@ ALTER TABLE ONLY public.old_readings
 
 ALTER TABLE ONLY public.readings
     ADD CONSTRAINT readings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: regions regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.regions
+    ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1162,6 +1207,13 @@ CREATE INDEX index_sensors_on_node_id ON public.sensors USING btree (node_id);
 
 
 --
+-- Name: index_suburbs_on_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_suburbs_on_region_id ON public.suburbs USING btree (region_id);
+
+
+--
 -- Name: index_user_roles_on_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1306,6 +1358,14 @@ ALTER TABLE ONLY public.homes
 
 
 --
+-- Name: suburbs fk_rails_8208fd2e4d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suburbs
+    ADD CONSTRAINT fk_rails_8208fd2e4d FOREIGN KEY (region_id) REFERENCES public.regions(id);
+
+
+--
 -- Name: home_viewers fk_rails_906c6d825b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1383,13 +1443,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170725084656'),
 ('20170801095409'),
 ('20170804072223'),
-('20170810212853'),
 ('20170812022839'),
 ('20170822215700'),
 ('20180619034843'),
 ('20180701090246'),
 ('20180801051352'),
 ('20180903100937'),
-('20180905092840');
+('20180905092840'),
+('20180927014241');
 
 
