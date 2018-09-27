@@ -1,13 +1,35 @@
-%fieldset
-  = f.text_field :name, type: 'text', placeholder: 'Name of home'
-  = f.text_field :homesuburb_name, type: 'text', placeholder: 'Name of suburb/town/city'
+- if @home.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@home.errors.count, 'error')
+      prevented this data from being saved:
+    %ul
+      - @home.errors.full_messages.each do |message|
+        %li
+          = fa_icon 'warning'
+          = message
 
-%fieldset
-  - HomeType.all.each do |ht|
-    %p
-      = f.radio_button :home_type_id, ht.id
-      = f.label :home_type_id, ht.name
+%ul.form-row
+  %li 
+    %label Give your whare a great name
+    = f.text_field :name, type: 'text', placeholder: 'Name of home'
 
-%fieldset
-  = f.label :is_public
-  = f.check_box :is_public, label: 'Public?'
+  %li
+    %label Which of these best describes your home?
+    = f.label :home_type
+    - HomeType.all.each do |ht|
+      %p
+        = f.radio_button :home_type_id, ht.id
+        = f.label :home_type_id, ht.name
+  %li
+    %label Do you have a Whare Gateway device? Enter the number written on it.
+    = f.text_field :gateway_mac_address
+
+  - if current_user.janitor? && @home.owner.blank?
+    %li
+      %label Owner's email
+      = text_field(:owner, :email)
+
+  %li
+    = f.text_field :homesuburb_name, type: 'text', placeholder: 'Name of suburb/town/city'
+

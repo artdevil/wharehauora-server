@@ -1,31 +1,28 @@
+# frozen_string_literal: true
+
 class ReadingsController < ApplicationController
   before_action :authenticate_user!
   respond_to :json
+  before_action :set_room
 
   def index
-    set_home
-    set_room
-    assemble_readings(@home, @room, params[:key])
+    assemble_readings(params[:key])
     render json: @data
   end
 
   private
 
-  def set_home
-    @home = policy_scope(Home).find(params[:home_id])
-    authorize @home
-  end
-
   def set_room
-    @room = policy_scope(Room).find(params[:room_id]) if params[:room_id]
+    @room = policy_scope(Room).find(params[:room_id])
+    authorize @room, :show?
   end
 
-  def assemble_readings(home, room, key)
-    @readings = readings(home, room, key)
+  def assemble_readings(key)
+    @readings = readings(key)
     data_by_room = {}
     @readings.each do |reading|
       created_at, room_id, room_name, reading_value = reading
-      room_name = 'un-named room' unless room_name
+      room_name ||= 'un-named room'
       data_by_room[room_id] = { 'name' => room_name, 'data' => [] } unless data_by_room[room_id]
       data_by_room[room_id]['data'] << [created_at, reading_value.round(2)]
     end
@@ -40,21 +37,15 @@ class ReadingsController < ApplicationController
     data
   end
 
-  def date_filter(query)
-    return query.where('readings.created_at >= ?', params[:start]) if params[:start]
-    return query.where('readings.created_at::date = ?', params[:day]) if params[:day]
-    query
-  end
-
-  def readings(home, room, key)
-    conditions = { "rooms.home_id": home.id, key: key }
-    conditions[:room_id] = room.id if room.present?
-    date_filter(Reading)
-      .joins(:room)
-      .where(conditions)
-      .normal_range
-      .order('readings.created_at')
-      .pluck("date_trunc('second', readings.created_at)",
-             'rooms.id as room_id', 'rooms.name', :value)
+  def readings(key)
+    Rails.cache.fetch("#{@room.id}/#{key}/readings", expires_in: 5.minutes) do
+      Reading
+        .joins(:room)
+        .where(key: key, room: @room)
+        .order('readings.created_at')
+        .limit(1000)
+        .pluck("date_trunc('minute', readings.created_at)",
+               'rooms.id as room_id', 'rooms.name', :value)
+    end
   end
 end

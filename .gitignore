@@ -54,3 +54,8 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore vagrant
+.vagrant
+ubuntu-bionic-18.04-cloudimg-console.log
+/public/assets/*

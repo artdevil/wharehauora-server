@@ -1,0 +1,38 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %title
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        WharehauoraServer
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    %meta{ content: 'on', 'http-equiv' => 'cleartype' }/
+    / webfont
+    %link{ href: 'https://fonts.googleapis.com/css?family=Merriweather:700|Roboto:300,400,700&subset=latin-ext', rel: 'stylesheet' }/
+    / js
+    %script{ src: javascript_path('detectizr-2.1.0.min.js') }
+    / mobile & iOS
+    %meta{ content: 'yes', name: 'apple-mobile-web-app-capable' }/
+    %meta{ content: 'width=device-width, initial-scale=1.0, user-scalable=no', name: 'viewport' }/
+    %link{ href: image_url('app-icon.png'), rel: 'apple-touch-icon-precomposed' }/
+    = favicon_link_tag asset_path('favicon.ico'), rel: 'icon', type:  'image/png'
+
+  %body.empty
+    %header.header
+      = link_to 'Whare Hauora', root_path, class: 'logo-sm'
+      %a.open-menu{href: "#"}
+        %span.label Menu
+        %img.svg{alt: "menu", src: image_path("icon/menu.svg") }/
+    = render('layouts/menu')
+    .content
+      .center
+        = render 'layouts/flash'
+        = yield
+
+    = render 'layouts/scripts'
