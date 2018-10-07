@@ -35,6 +35,9 @@ gem 'paranoia', '~> 2.2'
 # roles and permissions
 gem 'pundit'
 
+# Postgresql query analysis
+gem 'pghero'
+
 # templating
 gem 'haml-rails'
 

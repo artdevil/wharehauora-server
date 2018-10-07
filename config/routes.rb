@@ -60,4 +60,8 @@ Rails.application.routes.draw do
   namespace :gateway do
     resources :config
   end
+
+  authenticate :user, ->(user) { user.janitor? } do
+    mount PgHero::Engine, at: 'pghero'
+  end
 end
