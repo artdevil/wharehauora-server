@@ -111,7 +111,7 @@ class Room < ApplicationRecord
 
   def current?(key)
     age = age_of_last_reading(key)
-    age.present? && age < 1.hour
+    age.present? && age < 2.hours
   end
 
   def age_of_last_reading(key)

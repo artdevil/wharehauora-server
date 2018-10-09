@@ -32,11 +32,10 @@
           Too cold for a #{room.room_type.name.downcase}
         - if room.good?
           Room is good.
+      - elsif ! room.room_type.present?
+        Edit room type to get analysis
       - else
-        - if room.room_type.present?
-          Edit room type to get analysis
-        - else
-          Offline
+        Offline
     -#   = succeed "." do
     -#     %a.underline{href: "#"} Learn how to fix this
     = link_to room_path(room), class: 'btn' do
