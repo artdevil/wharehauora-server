@@ -18,8 +18,6 @@ module Measurable
       single_current_metric 'mould'
     end
 
-    private
-
     def single_current_metric(key)
       most_recent_reading(key)&.value
     end

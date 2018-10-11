@@ -4,9 +4,8 @@ module Rateable
   included do
     def rating
       Rails.cache.fetch("#{cache_key}/rating", expires_in: 10.minutes) do
-        number = 100
         return '?' unless enough_info_to_perform_rating?
-
+        number = 100
         number -= 20 if too_cold?
         number -= 40 if way_too_cold?
         number -= 40 if below_dewpoint?
