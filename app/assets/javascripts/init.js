@@ -1,5 +1,4 @@
 $(function () {
-
   /* /////////////////////////////////
     Vars
   ///////////////////////////////// */
@@ -61,7 +60,6 @@ $(function () {
 
       // Replace image with new SVG
       $img.replaceWith($svg);
-
     }, 'xml');
   });
 
