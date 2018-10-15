@@ -25,7 +25,7 @@ $(function () {
     detectPlugins: false
   });
 
-  var body = $("body");
+  var body = $('body');
   body.addClass(Detectizr.device.browser + ' ' + Detectizr.device.os + ' ' + Detectizr.device.type);
 
   /* /////////////////////////////////
@@ -69,19 +69,19 @@ $(function () {
     Mobile Menu
   ///////////////////////////////// */
 
-  $("a.open-menu").on("touchstart click", function(e){
+  $('a.open-menu').on('touchstart click', function(e){
     e.stopPropagation();
     e.preventDefault();
-    $("body").addClass("menu-is-open");
+    $('body').addClass('menu-is-open');
   });
 
-  $(".menu > header .x").on("touchstart click", function(e){
+  $('.menu > header .x').on('touchstart click', function(e){
     e.stopPropagation();
     e.preventDefault();
-    $("body").removeClass("menu-is-open").addClass("menu-is-closing");
+    $('body').removeClass('menu-is-open').addClass('menu-is-closing');
 
     setTimeout(function(){
-      $("body").removeClass("menu-is-closing");
+      $('body').removeClass('menu-is-closing');
     }, 290);
   });
 
@@ -91,10 +91,10 @@ $(function () {
 
   // submit forms with links
 
-  $("a.submit").on("click", function(e){
+  $('a.submit').on('click', function(e){
     e.stopPropagation();
     e.preventDefault();
-    $(this).closest("form").submit();
+    $(this).closest('form').submit();
   });
 
   $('form input').keypress(function(e){
@@ -106,23 +106,23 @@ $(function () {
 
   // replace select boxes
 
-  $("select").not(".lang-picker, .whare-picker").selectBoxIt({
+  $('select').not('.lang-picker, .whare-picker').selectBoxIt({
     showFirstOption: false
   });
 
-  $("select.lang-picker, select.whare-picker").selectBoxIt({
+  $('select.lang-picker, select.whare-picker').selectBoxIt({
     showFirstOption: true
   });
 
   // replace radio buttons & checkboxes
 
-  $("input[type=radio], input[type=checkbox]").iCheck();
+  $('input[type=radio], input[type=checkbox]').iCheck();
 
   /* /////////////////////////////////
 		Tooltips
 	///////////////////////////////// */
 
-  $(".tooltip").tooltipster({
+  $('.tooltip').tooltipster({
 	  animation: 'fade',
 	  animationDuration: 300,
 	  arrow: true,
@@ -138,12 +138,12 @@ $(function () {
 
   // open modal on special links
 
-  $(".open-modal").magnificPopup({
-    type: "inline",
+  $('.open-modal').magnificPopup({
+    type: 'inline',
     fixedContentPos: true,
     fixedBgPos: true,
-    focus: "",
-    overflowY: "scroll",
+    focus: '',
+    overflowY: 'scroll',
     preloader: false,
     midClick: true,
     removalDelay: 200,
@@ -153,7 +153,7 @@ $(function () {
 
   // close on X or close button click
 
-  $(".modal a.close").on("touchstart click", function(e){
+  $('.modal a.close').on('touchstart click', function(e){
     e.stopPropagation();
     e.preventDefault();
     $.magnificPopup.close();
