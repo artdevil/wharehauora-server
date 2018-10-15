@@ -31,30 +31,30 @@ $(function () {
    Replace all SVG images with inline SVG
   ///////////////////////////////// */
 
-  jQuery('img.svg').each(function(){
+  jQuery('img.svg').each(function () {
     var $img = jQuery(this);
     var imgID = $img.attr('id');
     var imgClass = $img.attr('class');
     var imgURL = $img.attr('src');
 
-    jQuery.get(imgURL, function(data) {
+    jQuery.get(imgURL, function (data) {
       // Get the SVG tag, ignore the rest
       var $svg = jQuery(data).find('svg');
 
       // Add replaced image's ID to the new SVG
-      if(typeof imgID !== 'undefined') {
+      if (typeof imgID !== 'undefined') {
         $svg = $svg.attr('id', imgID);
       }
       // Add replaced image's classes to the new SVG
-      if(typeof imgClass !== 'undefined') {
-        $svg = $svg.attr('class', imgClass+' replaced-svg');
+      if (typeof imgClass !== 'undefined') {
+        $svg = $svg.attr('class', imgClass + ' replaced-svg');
       }
 
       // Remove any invalid XML tags as per http://validator.w3.org
       $svg = $svg.removeAttr('xmlns:a');
 
       // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
-      if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+      if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
         $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
       }
 
@@ -67,18 +67,18 @@ $(function () {
     Mobile Menu
   ///////////////////////////////// */
 
-  $('a.open-menu').on('touchstart click', function(e){
+  $('a.open-menu').on('touchstart click', function (e) {
     e.stopPropagation();
     e.preventDefault();
     $('body').addClass('menu-is-open');
   });
 
-  $('.menu > header .x').on('touchstart click', function(e){
+  $('.menu > header .x').on('touchstart click', function (e) {
     e.stopPropagation();
     e.preventDefault();
     $('body').removeClass('menu-is-open').addClass('menu-is-closing');
 
-    setTimeout(function(){
+    setTimeout(function () {
       $('body').removeClass('menu-is-closing');
     }, 290);
   });
@@ -89,15 +89,15 @@ $(function () {
 
   // submit forms with links
 
-  $('a.submit').on('click', function(e){
+  $('a.submit').on('click', function (e) {
     e.stopPropagation();
     e.preventDefault();
     $(this).closest('form').submit();
   });
 
-  $('form input').keypress(function(e){
+  $('form input').keypress(function (e) {
     var c = e.which ? e.which : e.keyCode;
-    if(c == 13){
+    if (c == 13) {
 		  $(this).closest('form').submit();
     }
   });
@@ -151,7 +151,7 @@ $(function () {
 
   // close on X or close button click
 
-  $('.modal a.close').on('touchstart click', function(e){
+  $('.modal a.close').on('touchstart click', function (e) {
     e.stopPropagation();
     e.preventDefault();
     $.magnificPopup.close();
