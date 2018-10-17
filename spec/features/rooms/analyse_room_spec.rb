@@ -14,7 +14,7 @@ RSpec.describe 'analyse room', type: :feature do
   shared_examples 'show room analysis' do
     shared_examples 'can see room details' do
       it "shows room's name" do
-        is_expected.to have_text(room.name)
+        expect(subject).to have_text(room.name)
       end
     end
 
