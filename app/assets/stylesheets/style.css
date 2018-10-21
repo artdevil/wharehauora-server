@@ -3323,7 +3323,7 @@ input[type=radio] {
 }
 
 /* /////////////////////////////////
-  Select box varients 
+  Select box varients
 ///////////////////////////////// */
 .selectboxit-btn.lang-picker {
   background: transparent;
@@ -4148,7 +4148,7 @@ tr.spacer td {
 
 /**
  * DEFAULT STYLE OF THE SIDETIP PLUGIN
- * 
+ *
  * All styles are "namespaced" with .tooltipster-sidetip to prevent
  * conflicts between plugins.
  */
