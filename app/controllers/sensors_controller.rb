@@ -14,12 +14,12 @@ class SensorsController < ApplicationController
   end
 
   def update
-    if sensor_params_contains_room?
-      @sensor.create_room! room_params
-      @sensor.save!
-    else
-      @sensor.update!(sensor_params)
-    end
+    room = if sensor_params_contains_room?
+             Room.create(room_params)
+           else
+             policy_scope(Room).find(sensor_params[:room_id])
+           end
+    room&.assign_sensor(@sensor)
     redirect_to home_rooms_path @sensor.home
   end
 
@@ -27,7 +27,7 @@ class SensorsController < ApplicationController
     @sensor = policy_scope(Sensor).find(params[:sensor_id])
     authorize @sensor
     room = @sensor.room
-    @sensor.update! room: nil
+    room.unassign_sensor(@sensor)
     respond_with room
   end
 

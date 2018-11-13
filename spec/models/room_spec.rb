@@ -98,4 +98,20 @@ RSpec.describe Room, type: :model do
       it { expect(room.too_hot?).to eq(true) }
     end
   end
+
+  describe 'assign and unassign sensor' do
+    let(:sensor) { FactoryBot.create(:sensor, room: room) }
+
+    it 'size should be zero after unassign a sensor' do
+      room.unassign_sensor(sensor)
+      expect(Room.find_by(id: room.id).sensors.size).to eq(0)
+      expect(Sensor.find_by(id: sensor.id).room).to eq(nil)
+    end
+
+    it 'size should be 1 after assign a sensor' do
+      room.assign_sensor(sensor)
+      expect(Room.find_by(id: room.id).sensors.size).to eq(1)
+      expect(Sensor.find_by(id: sensor.id).room.id).to eq(room.id)
+    end
+  end
 end
