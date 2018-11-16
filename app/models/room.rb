@@ -30,6 +30,14 @@ class Room < ApplicationRecord
     sensors.size.positive?
   end
 
+  def assign_sensor(sensor)
+    sensors << sensor
+  end
+
+  def unassign_sensor(sensor)
+    sensors.delete(sensor)
+  end
+
   def current?(key)
     age = age_of_last_reading(key)
     age.present? && age < 2.hours
