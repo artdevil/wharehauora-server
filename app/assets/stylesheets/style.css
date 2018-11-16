@@ -1231,14 +1231,12 @@ a:visited {
   transition: all ease .2s;
 }
 
-.no-touch a:link:hover, .no-touch
-a:visited:hover {
+.no-touch a:link:hover, .no-touch a:visited:hover {
   color: #191919;
   text-decoration: none;
 }
 
-.no-touch a:link:active, .no-touch
-a:visited:active {
+.no-touch a:link:active, .no-touch a:visited:active {
   color: #000;
   text-decoration: none;
 }
@@ -2888,37 +2886,16 @@ textarea:disabled {
   color: #777;
 }
 
-.error input[type=text], .error
-input[type=password], .error
-input[type=search], .error
-input[type=email], .error
-input[type=tel], .error
-input[type=url], .error
-input[type=number], .error
-textarea {
+.error input[type=text], .error input[type=password], .error input[type=search], .error input[type=email], .error input[type=tel], .error input[type=url], .error input[type=number], .error textarea {
   border-color: #ea6720;
 }
 
-.max-half input[type=text], .max-half
-input[type=password], .max-half
-input[type=search], .max-half
-input[type=email], .max-half
-input[type=tel], .max-half
-input[type=url], .max-half
-input[type=number], .max-half
-textarea {
+.max-half input[type=text], .max-half input[type=password], .max-half input[type=search], .max-half input[type=email], .max-half input[type=tel], .max-half input[type=url], .max-half input[type=number], .max-half textarea {
   width: calc(50% - 9px);
 }
 
 @media (max-width: 699px) {
-  .max-half input[type=text], .max-half
-  input[type=password], .max-half
-  input[type=search], .max-half
-  input[type=email], .max-half
-  input[type=tel], .max-half
-  input[type=url], .max-half
-  input[type=number], .max-half
-  textarea {
+  .max-half input[type=text], .max-half input[type=password], .max-half input[type=search], .max-half input[type=email], .max-half input[type=tel], .max-half input[type=url], .max-half input[type=number], .max-half textarea {
     width: 100%;
   }
 }
