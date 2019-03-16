@@ -27,7 +27,6 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 
-
 class Home < ApplicationRecord
   belongs_to :owner, class_name: 'User'
   belongs_to :home_type, optional: true

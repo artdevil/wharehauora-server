@@ -12,7 +12,6 @@
 #  updated_at      :datetime         not null
 #
 
-
 class RoomType < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   has_many :rooms

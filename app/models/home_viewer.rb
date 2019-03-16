@@ -20,7 +20,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-
 class HomeViewer < ApplicationRecord
   belongs_to :user
   belongs_to :home

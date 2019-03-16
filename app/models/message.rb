@@ -26,7 +26,6 @@
 #  fk_rails_...  (sensor_id => sensors.id)
 #
 
-
 class Message < ApplicationRecord
   belongs_to :sensor, counter_cache: true
   delegate :home, :home_id, to: :sensor

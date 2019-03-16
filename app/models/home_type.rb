@@ -10,7 +10,6 @@
 #  updated_at :datetime         not null
 #
 
-
 class HomeType < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   has_many :homes

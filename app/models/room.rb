@@ -23,7 +23,6 @@
 #  fk_rails_...  (room_type_id => room_types.id)
 #
 
-
 class Room < ApplicationRecord
   belongs_to :home, counter_cache: true
   belongs_to :room_type, optional: true

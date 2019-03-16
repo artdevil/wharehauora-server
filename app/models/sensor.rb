@@ -23,7 +23,6 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 
-
 class Sensor < ApplicationRecord
   before_create :create_room
   belongs_to :home, counter_cache: true

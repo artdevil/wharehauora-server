@@ -19,7 +19,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-
 require 'digest'
 class MqttUser < ApplicationRecord
   belongs_to :home

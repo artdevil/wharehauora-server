@@ -23,7 +23,6 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 
-
 class Reading < ApplicationRecord
   belongs_to :room, counter_cache: true, touch: true
 

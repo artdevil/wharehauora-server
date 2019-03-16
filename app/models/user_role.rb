@@ -16,7 +16,6 @@
 #  index_user_roles_on_user_id  (user_id)
 #
 
-
 class UserRole < ApplicationRecord
   belongs_to :user
   belongs_to :role
