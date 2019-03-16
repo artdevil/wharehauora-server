@@ -59,3 +59,6 @@ bower.json
 .vagrant
 ubuntu-bionic-18.04-cloudimg-console.log
 /public/assets/*
+
+# Ignore database.yml
+/config/database.yml

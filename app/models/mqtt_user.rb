@@ -1,5 +1,25 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: mqtt_users
+#
+#  id             :integer          not null, primary key
+#  password       :string
+#  provisioned_at :datetime
+#  username       :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  home_id        :integer
+#  user_id        :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (home_id => homes.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
+
 require 'digest'
 class MqttUser < ApplicationRecord
   belongs_to :home
