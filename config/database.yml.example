@@ -2,8 +2,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  username: adhigunasabril
   pool: 5
   variables:
     statement_timeout: 5000
