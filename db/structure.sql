@@ -190,7 +190,21 @@ CREATE TABLE public.homes (
     home_type_id integer,
     rooms_count integer,
     sensors_count integer,
-    gateway_mac_address character varying
+    gateway_mac_address character varying,
+    address text,
+    city character varying,
+    suburb character varying,
+    meshblock character varying,
+    house_age character varying,
+    own_house_type character varying,
+    residents_ethnics character varying[] DEFAULT '{}'::character varying[],
+    residents_with_lgbtq boolean DEFAULT false NOT NULL,
+    residents_with_physical_disabled boolean DEFAULT false NOT NULL,
+    residents_with_respiratory_illness boolean DEFAULT false NOT NULL,
+    residents_with_allergies boolean DEFAULT false NOT NULL,
+    residents_with_mental_health_issues boolean DEFAULT false NOT NULL,
+    residents_with_children boolean DEFAULT false NOT NULL,
+    residents_with_elderly boolean DEFAULT false NOT NULL
 );
 
 
@@ -1332,6 +1346,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180801051352'),
 ('20180903100937'),
 ('20180905092840'),
-('20181113023753');
+('20181113023753'),
+('20190324004254');
 
 
