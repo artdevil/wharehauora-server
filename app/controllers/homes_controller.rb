@@ -70,7 +70,8 @@ class HomesController < ApplicationController
 
   def home_params
     params.require(:home).permit(
-      :name, :house_age, 
+      :name, :address, :latitude, :longitude, :city, :suburb, 
+      :meshblock, :house_age, 
       :own_house_type, :is_public, 
       :home_type_id, :gateway_mac_address,
       :residents_with_respiratory_illness, :residents_with_allergies,

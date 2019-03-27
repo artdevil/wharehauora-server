@@ -15,15 +15,37 @@
     %label Give your whare a great name
     = f.text_field :name, type: 'text', placeholder: 'Name of home'
   %li
+    %label Select your location in map
+    %input{ id: "pac-input", class: "controls", type: "text", placeholder: "Search Location In Here", value: f.object.address }
+    #map
+    %div{ style: 'display: none;' }
+      %ul
+        %li
+          %label address
+          = f.hidden_field :address, readonly: true
+        %li
+          %label city
+          = f.hidden_field :city, readonly: true
+        %li
+          %label suburb
+          = f.hidden_field :suburb, readonly: true
+        %li
+          %label latitude
+          = f.hidden_field :latitude, readonly: true
+        %li
+          %label longitude
+          = f.hidden_field :longitude, readonly: true
+  %li
+    %label Meshblock
+    = f.text_field :meshblock, placeholder: 'Meshblock'
+  %li
     %label House age
     = f.number_field :house_age, placeholder: 'Age of your home'
-
   %li
     %label Do you
     = f.select :own_house_type, (Home::OWNER_HOUSE_TYPE_LIST + ['Other']), (f.object.selected_other_own_house_type? ? { selected: 'Other' } : {}), { class: 'no-select-style other-select' }
     %br
     = f.text_field :own_house_type, placeholder: 'Type in here', disabled: !f.object.selected_other_own_house_type?, style: "display: #{f.object.selected_other_own_house_type? ? 'block' : 'none'};"
-  
   %li
     %label Which of these best describes your home?
     - HomeType.all.each do |ht|
@@ -80,3 +102,10 @@
     %li
       %label Owner's email
       = text_field(:owner, :email)
+
+- content_for :javascripts do
+  = javascript_include_tag 'pages/home'
+  %script{ src: "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap&libraries=places" }
+
+- content_for :stylesheets do
+  = stylesheet_link_tag 'pages/home'

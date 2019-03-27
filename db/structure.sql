@@ -204,7 +204,9 @@ CREATE TABLE public.homes (
     residents_with_allergies boolean DEFAULT false NOT NULL,
     residents_with_mental_health_issues boolean DEFAULT false NOT NULL,
     residents_with_children boolean DEFAULT false NOT NULL,
-    residents_with_elderly boolean DEFAULT false NOT NULL
+    residents_with_elderly boolean DEFAULT false NOT NULL,
+    latitude character varying,
+    longitude character varying
 );
 
 

@@ -9,6 +9,8 @@
 #  gateway_mac_address                 :string
 #  house_age                           :string
 #  is_public                           :boolean          default(FALSE), not null
+#  latitude                            :string
+#  longitude                           :string
 #  meshblock                           :string
 #  name                                :text             not null
 #  own_house_type                      :string
@@ -41,6 +43,10 @@
 #
 
 class Home < ApplicationRecord
+  serialize :address, EncryptedCoder.new
+  serialize :latitude, EncryptedCoder.new
+  serialize :longitude, EncryptedCoder.new
+
   OWNER_HOUSE_TYPE_LIST = ['own your home', 'rent privately', 'rent from Housing NZ']
   RESIDENTS_ETHNICS_LIST = ['Māori', 'Pacific peoples', 'Middle Eastern', 'Latin American', 'African', 'Asian', 'European']
   

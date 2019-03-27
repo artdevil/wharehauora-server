@@ -1,6 +1,8 @@
 class AddExtraInfoForHome < ActiveRecord::Migration[5.1]
   def change
     add_column :homes, :address, :text
+    add_column :homes, :latitude, :string
+    add_column :homes, :longitude, :string
     add_column :homes, :city, :string
     add_column :homes, :suburb, :string
     add_column :homes, :meshblock, :string
