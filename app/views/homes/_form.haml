@@ -45,6 +45,10 @@
     = f.label :residents_with_elderly, 'Are elderly present in the home?'
 
   %li
+    %label House age
+    = f.number_field :house_age, placeholder: 'Age of your home'
+  
+  %li
     %label Which of these best describes your home?
     - HomeType.all.each do |ht|
       %p

@@ -195,7 +195,6 @@ CREATE TABLE public.homes (
     city character varying,
     suburb character varying,
     house_age character varying,
-    own_house_type character varying,
     residents_ethnics character varying[] DEFAULT '{}'::character varying[],
     residents_with_lgbtq boolean DEFAULT false NOT NULL,
     residents_with_physical_disabled boolean DEFAULT false NOT NULL,

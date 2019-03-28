@@ -11,7 +11,6 @@
 #  latitude                           :string
 #  longitude                          :string
 #  name                               :text             not null
-#  own_house_type                     :string
 #  residents_ethnics                  :string           default([]), is an Array
 #  residents_with_allergies           :boolean          default(FALSE), not null
 #  residents_with_anxiety             :boolean          default(FALSE), not null
@@ -46,7 +45,6 @@ class Home < ApplicationRecord
   serialize :latitude, EncryptedCoder.new
   serialize :longitude, EncryptedCoder.new
 
-  OWNER_HOUSE_TYPE_LIST = ['own your home', 'rent privately', 'rent from Housing NZ'].freeze
   RESIDENTS_ETHNICS_LIST = [
     'Māori', 'Pacific peoples', 'Middle Eastern', 'Latin American', 'African', 'Asian', 'European'
   ].freeze
@@ -89,10 +87,6 @@ class Home < ApplicationRecord
 
   def gateway
     Gateway.find_by(mac_address: gateway_mac_address)
-  end
-
-  def selected_other_own_house_type?
-    !Home::OWNER_HOUSE_TYPE_LIST.include?(own_house_type)
   end
 
   def selected_other_residents_ethnics?
