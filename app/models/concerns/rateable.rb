@@ -8,9 +8,13 @@ module Rateable
       Rails.cache.fetch("#{cache_key}/rating", expires_in: 10.minutes) do
         return '?' unless enough_info_to_perform_rating?
         number = 100
-        number -= 20 if too_cold?
-        number -= 40 if way_too_cold?
-        number -= 40 if below_dewpoint?
+        if too_cold?
+          number -= 20
+        elsif way_too_cold?
+          number -= 40
+        elsif below_dewpoint?
+          number -= 40
+        end
         RoomService.rating_letter(number)
       end
     end
@@ -23,9 +27,7 @@ module Rateable
 
     def good?
       Rails.cache.fetch("#{cache_key}/good?", expires_in: 10.minutes) do
-        return false unless enough_info_to_perform_rating?
-        return false if below_dewpoint? || too_cold? || too_hot?
-
+        return false if !enough_info_to_perform_rating? || below_dewpoint? || too_cold? || too_hot?
         true
       end
     end
