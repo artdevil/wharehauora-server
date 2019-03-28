@@ -25,8 +25,8 @@ function initMap() {
   var longitude = document.getElementById('home_longitude');
 
   // set default map if already present latitude longitude
-  if(latitude.value.length > 0 && longitude.value.length > 0) {
-    addMarker({ lat: parseFloat(latitude.value), lng: parseFloat(longitude.value) })
+  if(!!latitude.value && !!longitude.value) {
+    addMarker({ lat: parseFloat(latitude.value), lng: parseFloat(longitude.value) });
   }
 
   // Bias the SearchBox results towards current map's viewport.
@@ -96,10 +96,10 @@ function initMap() {
         result = extractAddressComponents(place.address_components, 'sublocality');
         break;
       case 'latitude':
-        result = place.geometry.location.lat()
+        result = place.geometry.location.lat();
         break;
       case 'longitude':
-        result = place.geometry.location.lng()
+        result = place.geometry.location.lng();
         break;
     }
 
@@ -107,12 +107,12 @@ function initMap() {
   }
 
   function extractAddressComponents(address_components, text_data) {
-    var result = address_components.find(function(element) { return element.types.includes(text_data)})
+    var result = address_components.find(function(element) { return element.types.includes(text_data); });
 
     if(result !== undefined) {
-      return result.long_name
+      return result.long_name;
     } else {
-      return ''
+      return '';
     }
   }
 }

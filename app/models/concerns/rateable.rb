@@ -10,9 +10,7 @@ module Rateable
         number = 100
         if too_cold?
           number -= 20
-        elsif way_too_cold?
-          number -= 40
-        elsif below_dewpoint?
+        elsif way_too_cold? || below_dewpoint?
           number -= 40
         end
         RoomService.rating_letter(number)
