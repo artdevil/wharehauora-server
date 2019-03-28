@@ -90,16 +90,10 @@ function initMap() {
         result = place.formatted_address;
         break;
       case 'city':
-        result = place.address_components.find(function(element) { return element.types.includes("locality")})
-        if(result !== undefined) {
-          result = result.long_name
-        }
+        result = extractAddressComponents(place.address_components, 'locality');
         break;
       case 'suburb':
-        result = place.address_components.find(function(element) { return element.types.includes("sublocality")})
-        if(result !== undefined) {
-          result = result.long_name
-        }
+        result = extractAddressComponents(place.address_components, 'sublocality');
         break;
       case 'latitude':
         result = place.geometry.location.lat()
@@ -107,7 +101,17 @@ function initMap() {
       case 'longitude':
         result = place.geometry.location.lng()
         break;
-    } 
+    }
+
+    function extractAddressComponents(address_components, text_data) {
+      var result = address_components.find(function(element) { return element.types.includes(text_data)})
+
+      if(result !== undefined) {
+        return result.long_name
+      } else {
+        return ''
+      }
+    }
 
     return result;
   }

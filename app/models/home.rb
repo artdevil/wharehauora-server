@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: homes
@@ -46,9 +45,11 @@ class Home < ApplicationRecord
   serialize :latitude, EncryptedCoder.new
   serialize :longitude, EncryptedCoder.new
 
-  OWNER_HOUSE_TYPE_LIST = ['own your home', 'rent privately', 'rent from Housing NZ']
-  RESIDENTS_ETHNICS_LIST = ['Māori', 'Pacific peoples', 'Middle Eastern', 'Latin American', 'African', 'Asian', 'European']
-  
+  OWNER_HOUSE_TYPE_LIST = ['own your home', 'rent privately', 'rent from Housing NZ'].freeze
+  RESIDENTS_ETHNICS_LIST = [
+    'Māori', 'Pacific peoples', 'Middle Eastern', 'Latin American', 'African', 'Asian', 'European'
+  ].freeze
+
   belongs_to :owner, class_name: 'User'
   belongs_to :home_type, optional: true
 
