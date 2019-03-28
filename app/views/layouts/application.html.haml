@@ -8,6 +8,7 @@
         WharehauoraServer
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = yield(:stylesheets) if content_for?(:stylesheets)
     = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -36,3 +37,4 @@
         = yield
 
     = render 'layouts/scripts'
+    = yield(:javascripts) if content_for?(:javascripts)

@@ -14,14 +14,83 @@
   %li 
     %label Give your whare a great name
     = f.text_field :name, type: 'text', placeholder: 'Name of home'
+  %li
+    %label Enter your address
+    %input{ id: "pac-input", class: "controls", type: "text", placeholder: "Enter your addresshere", value: f.object.address }
+    #map.map-style
+    %div{ style: 'display: none;' }
+      %ul
+        %li
+          %label address
+          = f.hidden_field :address, readonly: true
+        %li
+          %label city
+          = f.hidden_field :city, readonly: true
+        %li
+          %label suburb
+          = f.hidden_field :suburb, readonly: true
+        %li
+          %label latitude
+          = f.hidden_field :latitude, readonly: true
+        %li
+          %label longitude
+          = f.hidden_field :longitude, readonly: true
 
   %li
+    = f.check_box :residents_with_children, {}, true
+    = f.label :residents_with_children, 'Are children present in the home?'
+  
+  %li
+    = f.check_box :residents_with_elderly, {}, true
+    = f.label :residents_with_elderly, 'Are elderly present in the home?'
+
+  %li
+    %label House age
+    = f.number_field :house_age, placeholder: 'Age of your home'
+  
+  %li
     %label Which of these best describes your home?
-    = f.label :home_type
     - HomeType.all.each do |ht|
       %p
         = f.radio_button :home_type_id, ht.id
         = f.label :home_type_id, ht.name
+  
+  %li
+    %label Do any residents in your home identify as 
+    - Home::RESIDENTS_ETHNICS_LIST.each do |ht|
+      %p
+        = f.check_box :residents_ethnics, { :multiple => true, :checked => f.object.residents_ethnics.include?(ht) }, ht, nil
+        = f.label :residents_ethnics, ht
+    %p
+      = check_box_tag :other, 'Other', false, checked: f.object.selected_other_residents_ethnics?, class: 'other-select', data: { 'target-other-select' => '#other_residents_ethnics' }
+      = f.label :residents_ethnics, 'Other'
+    %br
+    = f.text_field :residents_ethnics, name: "home[residents_ethnics][]", id: 'other_residents_ethnics', placeholder: 'Type in here', value: f.object.other_residents_ethnics, style: "display: #{f.object.selected_other_residents_ethnics? ? 'block' : 'none'};"
+  
+  %li
+    %label Do any residents in your home have a history of 
+    %ul
+      %li{ style: 'background: none;' }
+        = f.check_box :residents_with_respiratory_illness, {}, true
+        = f.label :residents_with_respiratory_illness, 'respiratory illness?'
+      %li{ style: 'background: none;' }
+        = f.check_box :residents_with_allergies, {}, true
+        = f.label :residents_with_allergies, 'allergies?'
+      %li{ style: 'background: none;' }
+        = f.check_box :residents_with_depression, {}, true
+        = f.label :residents_with_depression, 'Depression'
+      %li{ style: 'background: none;' }
+        = f.check_box :residents_with_anxiety, {}, true
+        = f.label :residents_with_anxiety, 'Anxiety'
+  %li
+  %li
+    = f.check_box :residents_with_lgbtq, {}, true
+    = f.label :residents_with_lgbtq, 'Do any residents in your home identify as LGBTQ+?'
+  
+  %li
+    = f.check_box :residents_with_physical_disabled, {}, true
+    = f.label :residents_with_physical_disabled, 'Are any residents in your home disabled?'
+
   %li
     %label Do you have a Whare Gateway device? Enter the number written on it.
     = f.text_field :gateway_mac_address
@@ -30,3 +99,10 @@
     %li
       %label Owner's email
       = text_field(:owner, :email)
+
+- content_for :javascripts do
+  = javascript_include_tag 'pages/home'
+  %script{ src: "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap&libraries=places" }
+
+- content_for :stylesheets do
+  = stylesheet_link_tag 'pages/home'

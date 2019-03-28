@@ -104,11 +104,11 @@ $(function () {
 
   // replace select boxes
 
-  $('select').not('.lang-picker, .whare-picker').selectBoxIt({
+  $('select').not('.lang-picker, .whare-picker, .no-select-style').selectBoxIt({
     showFirstOption: false
   });
 
-  $('select.lang-picker, select.whare-picker').selectBoxIt({
+  $('select.lang-picker, select.whare-picker').not('.no-select-style').selectBoxIt({
     showFirstOption: true
   });
 
@@ -155,5 +155,32 @@ $(function () {
     e.stopPropagation();
     e.preventDefault();
     $.magnificPopup.close();
+  });
+
+  /* /////////////////////////////////
+		Selected for other
+  ///////////////////////////////// */
+  $(document).on('change ifChanged', '.other-select', function() {
+    if($(this).attr('type') === 'checkbox'){
+      var target = $(this).data('target-other-select');
+      var selected_field = $(target).not(this);
+
+      if ($(this).is(':checked')) {
+        selected_field.show()
+      } else {
+        selected_field.hide()
+      }
+    } else {
+      var target = 'input[type="text"][name="'+$(this).attr('name')+'"]';
+      var selected_field = $(target).not(this);
+
+      if ($(this).val() === 'Other') {
+        selected_field.show()
+        selected_field.prop('disabled', false);
+      } else {
+        selected_field.hide()
+        selected_field.prop('disabled', true);
+      }
+    }
   });
 });

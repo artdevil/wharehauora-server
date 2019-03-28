@@ -1,19 +1,32 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: homes
 #
-#  id                  :integer          not null, primary key
-#  gateway_mac_address :string
-#  is_public           :boolean          default(FALSE), not null
-#  name                :text             not null
-#  rooms_count         :integer
-#  sensors_count       :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  home_type_id        :integer
-#  owner_id            :integer          not null
+#  id                                 :integer          not null, primary key
+#  address                            :text
+#  city                               :string
+#  gateway_mac_address                :string
+#  house_age                          :string
+#  is_public                          :boolean          default(FALSE), not null
+#  latitude                           :string
+#  longitude                          :string
+#  name                               :text             not null
+#  residents_ethnics                  :string           default([]), is an Array
+#  residents_with_allergies           :boolean          default(FALSE), not null
+#  residents_with_anxiety             :boolean          default(FALSE), not null
+#  residents_with_children            :boolean          default(FALSE), not null
+#  residents_with_depression          :boolean          default(FALSE), not null
+#  residents_with_elderly             :boolean          default(FALSE), not null
+#  residents_with_lgbtq               :boolean          default(FALSE), not null
+#  residents_with_physical_disabled   :boolean          default(FALSE), not null
+#  residents_with_respiratory_illness :boolean          default(FALSE), not null
+#  rooms_count                        :integer
+#  sensors_count                      :integer
+#  suburb                             :string
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
+#  home_type_id                       :integer
+#  owner_id                           :integer          not null
 #
 # Indexes
 #
@@ -28,6 +41,14 @@
 #
 
 class Home < ApplicationRecord
+  serialize :address, EncryptedCoder.new
+  serialize :latitude, EncryptedCoder.new
+  serialize :longitude, EncryptedCoder.new
+
+  RESIDENTS_ETHNICS_LIST = [
+    'Māori', 'Pacific peoples', 'Middle Eastern', 'Latin American', 'African', 'Asian', 'European'
+  ].freeze
+
   belongs_to :owner, class_name: 'User'
   belongs_to :home_type, optional: true
 
@@ -66,6 +87,14 @@ class Home < ApplicationRecord
 
   def gateway
     Gateway.find_by(mac_address: gateway_mac_address)
+  end
+
+  def selected_other_residents_ethnics?
+    !Home::RESIDENTS_ETHNICS_LIST.include?(residents_ethnics)
+  end
+
+  def other_residents_ethnics
+    (residents_ethnics - Home::RESIDENTS_ETHNICS_LIST).first
   end
 
   private
