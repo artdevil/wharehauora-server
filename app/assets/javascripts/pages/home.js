@@ -103,16 +103,16 @@ function initMap() {
         break;
     }
 
-    function extractAddressComponents(address_components, text_data) {
-      var result = address_components.find(function(element) { return element.types.includes(text_data)})
-
-      if(result !== undefined) {
-        return result.long_name
-      } else {
-        return ''
-      }
-    }
-
     return result;
+  }
+
+  function extractAddressComponents(address_components, text_data) {
+    var result = address_components.find(function(element) { return element.types.includes(text_data)})
+
+    if(result !== undefined) {
+      return result.long_name
+    } else {
+      return ''
+    }
   }
 }
