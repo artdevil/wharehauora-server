@@ -201,11 +201,12 @@ CREATE TABLE public.homes (
     residents_with_physical_disabled boolean DEFAULT false NOT NULL,
     residents_with_respiratory_illness boolean DEFAULT false NOT NULL,
     residents_with_allergies boolean DEFAULT false NOT NULL,
-    residents_with_mental_health_issues boolean DEFAULT false NOT NULL,
     residents_with_children boolean DEFAULT false NOT NULL,
     residents_with_elderly boolean DEFAULT false NOT NULL,
     latitude character varying,
-    longitude character varying
+    longitude character varying,
+    residents_with_depression boolean DEFAULT false NOT NULL,
+    residents_with_anxiety boolean DEFAULT false NOT NULL
 );
 
 

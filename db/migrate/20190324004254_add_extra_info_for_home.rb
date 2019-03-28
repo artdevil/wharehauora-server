@@ -12,7 +12,8 @@ class AddExtraInfoForHome < ActiveRecord::Migration[5.1]
     add_column :homes, :residents_with_physical_disabled, :boolean, null: false, default: false
     add_column :homes, :residents_with_respiratory_illness, :boolean, null: false, default: false
     add_column :homes, :residents_with_allergies, :boolean, null: false, default: false
-    add_column :homes, :residents_with_mental_health_issues, :boolean, null: false, default: false
+    add_column :homes, :residents_with_depression, :boolean, null: false, default: false
+    add_column :homes, :residents_with_anxiety, :boolean, null: false, default: false
     add_column :homes, :residents_with_children, :boolean, null: false, default: false
     add_column :homes, :residents_with_elderly, :boolean, null: false, default: false
   end

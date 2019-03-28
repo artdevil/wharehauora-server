@@ -2,31 +2,32 @@
 #
 # Table name: homes
 #
-#  id                                  :integer          not null, primary key
-#  address                             :text
-#  city                                :string
-#  gateway_mac_address                 :string
-#  house_age                           :string
-#  is_public                           :boolean          default(FALSE), not null
-#  latitude                            :string
-#  longitude                           :string
-#  name                                :text             not null
-#  own_house_type                      :string
-#  residents_ethnics                   :string           default([]), is an Array
-#  residents_with_allergies            :boolean          default(FALSE), not null
-#  residents_with_children             :boolean          default(FALSE), not null
-#  residents_with_elderly              :boolean          default(FALSE), not null
-#  residents_with_lgbtq                :boolean          default(FALSE), not null
-#  residents_with_mental_health_issues :boolean          default(FALSE), not null
-#  residents_with_physical_disabled    :boolean          default(FALSE), not null
-#  residents_with_respiratory_illness  :boolean          default(FALSE), not null
-#  rooms_count                         :integer
-#  sensors_count                       :integer
-#  suburb                              :string
-#  created_at                          :datetime         not null
-#  updated_at                          :datetime         not null
-#  home_type_id                        :integer
-#  owner_id                            :integer          not null
+#  id                                 :integer          not null, primary key
+#  address                            :text
+#  city                               :string
+#  gateway_mac_address                :string
+#  house_age                          :string
+#  is_public                          :boolean          default(FALSE), not null
+#  latitude                           :string
+#  longitude                          :string
+#  name                               :text             not null
+#  own_house_type                     :string
+#  residents_ethnics                  :string           default([]), is an Array
+#  residents_with_allergies           :boolean          default(FALSE), not null
+#  residents_with_anxiety             :boolean          default(FALSE), not null
+#  residents_with_children            :boolean          default(FALSE), not null
+#  residents_with_depression          :boolean          default(FALSE), not null
+#  residents_with_elderly             :boolean          default(FALSE), not null
+#  residents_with_lgbtq               :boolean          default(FALSE), not null
+#  residents_with_physical_disabled   :boolean          default(FALSE), not null
+#  residents_with_respiratory_illness :boolean          default(FALSE), not null
+#  rooms_count                        :integer
+#  sensors_count                      :integer
+#  suburb                             :string
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
+#  home_type_id                       :integer
+#  owner_id                           :integer          not null
 #
 # Indexes
 #
