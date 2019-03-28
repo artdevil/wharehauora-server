@@ -13,6 +13,10 @@ function initMap() {
     scaledSize: new google.maps.Size(25, 25)
   };
 
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+
   var markers = [];
   var address = document.getElementById('home_address');
   var city = document.getElementById('home_city');
@@ -24,10 +28,6 @@ function initMap() {
   if(latitude.value.length > 0 && longitude.value.length > 0) {
     addMarker({ lat: parseFloat(latitude.value), lng: parseFloat(longitude.value) })
   }
-
-  // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
@@ -52,7 +52,6 @@ function initMap() {
       setAddress(place);
       addMarker(place.geometry.location);
     });
-
   });
 
   function addMarker(latLang) {
@@ -60,6 +59,7 @@ function initMap() {
     markers.forEach(function(marker) {
       marker.setMap(null);
     });
+    
     markers = [];
 
     var bounds = new google.maps.LatLngBounds();
