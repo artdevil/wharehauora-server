@@ -1,5 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: messages
+#
+#  id              :integer          not null, primary key
+#  ack             :integer
+#  message_type    :string
+#  payload         :text
+#  sub_type        :integer
+#  topic           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  child_sensor_id :integer
+#  node_id         :integer
+#  sensor_id       :integer
+#
+# Indexes
+#
+#  index_messages_on_created_at  (created_at)
+#  index_messages_on_sensor_id   (sensor_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (sensor_id => sensors.id)
+#
+
 class Message < ApplicationRecord
   belongs_to :sensor, counter_cache: true
   delegate :home, :home_id, to: :sensor

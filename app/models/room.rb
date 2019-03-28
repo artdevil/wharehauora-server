@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: rooms
+#
+#  id             :integer          not null, primary key
+#  name           :text
+#  readings_count :integer
+#  sensors_count  :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  home_id        :integer          not null
+#  room_type_id   :integer
+#
+# Indexes
+#
+#  index_rooms_on_home_id  (home_id)
+#  index_rooms_on_name     (name)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (room_type_id => room_types.id)
+#
+
 class Room < ApplicationRecord
   belongs_to :home, counter_cache: true
   belongs_to :room_type, optional: true

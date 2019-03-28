@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: sensors
+#
+#  id             :integer          not null, primary key
+#  mac_address    :string
+#  messages_count :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  home_id        :integer          not null
+#  node_id        :integer          not null
+#  room_id        :integer
+#
+# Indexes
+#
+#  index_sensors_on_node_id  (node_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (home_id => homes.id)
+#  fk_rails_...  (room_id => rooms.id)
+#
+
 class Sensor < ApplicationRecord
   before_create :create_room
   belongs_to :home, counter_cache: true

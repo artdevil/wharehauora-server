@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: readings
+#
+#  id         :integer          not null, primary key
+#  key        :text             not null
+#  value      :float            not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  room_id    :integer          not null
+#
+# Indexes
+#
+#  index_readings_on_created_at       (created_at)
+#  index_readings_on_key              (key)
+#  index_readings_on_key_and_room_id  (key,room_id)
+#  index_readings_on_room_id          (room_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (room_id => rooms.id)
+#
+
 class Reading < ApplicationRecord
   belongs_to :room, counter_cache: true, touch: true
 

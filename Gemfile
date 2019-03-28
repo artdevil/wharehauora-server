@@ -123,6 +123,9 @@ group :development do
 
   # Counts data base queries on the page
   gem 'sql_queries_count'
+
+  # Add annotate to model so field of database more clear
+  gem 'annotate'
 end
 
 group :test do
