@@ -194,7 +194,6 @@ CREATE TABLE public.homes (
     address text,
     city character varying,
     suburb character varying,
-    meshblock character varying,
     house_age character varying,
     own_house_type character varying,
     residents_ethnics character varying[] DEFAULT '{}'::character varying[],

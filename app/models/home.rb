@@ -11,7 +11,6 @@
 #  is_public                           :boolean          default(FALSE), not null
 #  latitude                            :string
 #  longitude                           :string
-#  meshblock                           :string
 #  name                                :text             not null
 #  own_house_type                      :string
 #  residents_ethnics                   :string           default([]), is an Array
