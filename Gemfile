@@ -133,3 +133,13 @@ group :test do
   gem 'rails-controller-testing'
   gem 'timecop'
 end
+
+group :development do
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+  gem 'capistrano-rake',    require: false
+  gem 'capistrano-pumactl', require: false
+end
