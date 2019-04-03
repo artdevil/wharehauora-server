@@ -23,6 +23,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 set :pumactl_roles, :app
 set :sitemap_roles, :web
+set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
 
 ## Defaults:
 # set :format,        :pretty

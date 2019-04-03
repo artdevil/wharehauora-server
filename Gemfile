@@ -142,4 +142,5 @@ group :development do
   gem 'capistrano3-puma',   require: false
   gem 'capistrano-rake',    require: false
   gem 'capistrano-pumactl', require: false
+  gem 'capistrano-faster-assets', require: false
 end
