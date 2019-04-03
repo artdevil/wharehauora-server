@@ -25,6 +25,9 @@ gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', 
 # Use Postgresql as the database for Active Record
 gem 'pg', '< 1.0.0'
 
+# Using puma as server
+gem 'puma'
+
 # for logins
 gem 'devise'
 gem 'devise_invitable', '~> 1.7.0'

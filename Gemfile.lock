@@ -437,6 +437,7 @@ DEPENDENCIES
   paranoia (~> 2.2)
   pg (< 1.0.0)
   pghero
+  puma
   pundit
   pundit-matchers (~> 1.3.0)
   pundit-resources!
