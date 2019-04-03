@@ -9,7 +9,7 @@ set :application,     'wharehauora-server'
 set :pty,             false
 set :use_sudo,        false
 set :deploy_via,      :remote_cache
-set :linked_files, %w{config/database.yml config/application.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{tmp/pids}
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
