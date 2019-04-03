@@ -75,6 +75,8 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bundler (1.5.0)
       capistrano (~> 3.1)
+    capistrano-faster-assets (1.1.0)
+      capistrano (>= 3.1)
     capistrano-pumactl (0.0.1)
       capistrano (~> 3.1)
     capistrano-rails (1.4.0)
@@ -402,6 +404,7 @@ DEPENDENCIES
   byebug
   capistrano
   capistrano-bundler
+  capistrano-faster-assets
   capistrano-pumactl
   capistrano-rails
   capistrano-rake

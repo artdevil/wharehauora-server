@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :user,            'rails'
-set :repo_url,        'git@github.com:WhareHauora/wharehauora-server.git'
+set :repo_url,        'git@github.com:artdevil/wharehauora-server.git'
 set :application,     'wharehauora-server'
 
 # Don't change these unless you know what you're doing
