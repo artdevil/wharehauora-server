@@ -190,6 +190,13 @@ project.
 
 `overcommit -r`
 
+## slack notification
+there build in slack notification where there an error come from server. you can
+webhook with follow this tutorial https://api.slack.com/incoming-webhooks. after
+you get webhook URL set in your WEBHOOK_SLACK_URL environment variable
+
+`WEBHOOK_SLACK_URL='https://.........'`
+
 ## Deployment
 
 This app is hosted on heroku.

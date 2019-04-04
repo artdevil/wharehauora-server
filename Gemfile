@@ -79,7 +79,11 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'nokogiri', '>= 1.8.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
-group :production do
+# notify if there any error come from server
+gem 'exception_notification'
+gem 'slack-notifier'
+
+group :production, :staging do
   # for heroku
   # gem 'newrelic_rpm'
   gem 'rails_12factor'

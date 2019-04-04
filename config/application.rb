@@ -22,3 +22,14 @@ module WharehauoraServer
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+if ENV['WEBHOOK_SLACK_URL'].present?
+  # notifier to slack channel when there an error in application
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    slack: {
+      webhook_url: ENV['WEBHOOK_SLACK_URL'],
+      additional_parameters: {
+        mrkdwn: true
+      }
+    }
+end
