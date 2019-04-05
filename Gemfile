@@ -27,7 +27,7 @@ gem 'pg', '< 1.0.0'
 
 # for logins
 gem 'devise'
-gem 'devise_invitable', '~> 1.7.0'
+gem 'devise_invitable'
 
 # soft delete of records
 gem 'paranoia', '~> 2.2'
@@ -66,7 +66,7 @@ gem 'active_median'
 gem 'momentjs-rails'
 
 # OAuth for API
-gem 'doorkeeper', '4.2.6'
+gem 'doorkeeper'
 
 # Rest/http library
 gem 'faraday'
