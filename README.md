@@ -210,6 +210,7 @@ heroku)
 
 ## Deployment using capistrano
 
-You need to get key for .pem file from admin and set `WHAREHAUORA_STAGING_KEY_PEM` 
-environment variable in your computer. after that follow this instruction for [deploy](https://www.digitalocean.com/community/tutorials/deploying-a-rails-app-on-ubuntu-14-04-with-capistrano-nginx-and-puma)
+You need to get key for .pem file from admin and set
+`WHAREHAUORA_STAGING_KEY_PEM` environment variable in your computer. after that
+follow this instruction for [deploy](https://www.digitalocean.com/community/tutorials/deploying-a-rails-app-on-ubuntu-14-04-with-capistrano-nginx-and-puma)
 
