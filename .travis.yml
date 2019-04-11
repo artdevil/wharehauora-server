@@ -1,5 +1,4 @@
 language: ruby
-bundler_args: "--without development"
 sudo: false
 cache: bundler
 before_script:
@@ -20,6 +19,3 @@ deploy:
   script: bash config/build.sh staging
   on:
     branch: master
-env:
-  global:
-    secure: Vzo8/1jr67/+5O3K439AULPJQKAS2G5BDZ4Ka3kVs6YQAE95sjvkagiezTEzckSZTNhVaZVDpcJJsjK0Fwc0n0iw3MAT3qqkGjJHsBeq5rJLEIz+Mmvu4tPNjetCp/uPir/gL2joShl6V5/fErDy00DJ2Xdj8Ma8oXrtBBSWCQE32Qp6KcpUtqBRnSPp7dnE6btr+TMZQ76o6pziL8mAOKm40CaOnEzL3f46OYBLFDejvdLB67Xg2qvL/i490jCK08B0X1NKTWBmqK/HRV/tUj40W8TvFp/FM8iBlI+erUWuJfsf7CND0CcUlzerWdEBrdReytj33oonkvQjjsTV3iLUQp4nWDFpwWkpaG//1lgZ8KT++JGO6vhiu0yiRNdJ3yW8F5fqSd3PP7MfOrcrkBKo/PQy6YuArclTj0hfF+srhmveVrbYexlqYoHfRXNONXZotP6e35p3RQfesJOAhaNt/dUu6/hQ/v/KS6PzOdGZlc2SWkJ0YrCVOVWJaTukO+7uu1YMFVKiEfJI9LlGHOV7MYW1HHrFQbNNrSxjJ4QqmRvNIVRn82hoMvA7BWrlLfsRVHk5NZ7DQwWTQ4RxnvfZpLAMdR6Jo8C4eD0//NWDRUxeLSdO6grSJ5U8MRRKdYlYKvcZtLuuOlsYD2lrdIy5bT9lu8xWM1vcoqpzlr0=
