@@ -23,12 +23,14 @@ capybara-*.html
 /tmp
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/structure.sql
 /public/system
 /coverage/
 /spec/tmp
 **.orig
 rerun.txt
 pickle-email-*.html
+tests.db
 
 
 # dotenv
