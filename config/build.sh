@@ -8,4 +8,4 @@ STAGE="$1"
 
 openssl aes-256-cbc -k $DEPLOY_KEY -in config/deploy_id_rsa_enc_travis -d -a -out config/deploy_id_rsa
 export WHAREHAUORA_STAGING_KEY_PEM=config/deploy_id_rsa
-cap $STAGE deploy
+bundle exec cap $STAGE deploy
