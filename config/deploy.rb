@@ -84,7 +84,7 @@ namespace :deploy do
 
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :'deploy:publishing', :'pumactl:restart'
+  # after  :'deploy:publishing', :'pumactl:restart'
 end
 
 namespace :rails do

@@ -15,3 +15,8 @@ script:
   - bundle exec rspec
 after_success:
   - ./cc-test-reporter after-build --id $CC_TEST_REPORTER_ID
+deploy:
+  provider: script
+  script: bash config/build.sh staging
+  on:
+    branch: master
