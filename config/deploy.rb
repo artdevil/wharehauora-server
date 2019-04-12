@@ -61,7 +61,6 @@ namespace :puma do
   task :start do
     on roles(:app) do
       invoke 'pumactl:restart'
-      # puts "A solution to this should be found."
     end
   end
 end
@@ -84,7 +83,6 @@ namespace :deploy do
 
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  # after  :'deploy:publishing', :'pumactl:restart'
 end
 
 namespace :rails do
