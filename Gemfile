@@ -141,7 +141,7 @@ group :test do
   gem 'timecop'
 end
 
-group :development do
+group :development, :test do
   gem 'capistrano',         require: false
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-rails',   require: false

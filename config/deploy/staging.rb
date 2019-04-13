@@ -14,5 +14,5 @@ set :ssh_options, {
   forward_agent: true,
   user: 'rails',
   auth_methods: %w[publickey],
-  keys: ENV['WHAREHAUORA_STAGING_KEY_PEM']
+  keys: ENV['WHAREHAUORA_KEY_PEM']
 }

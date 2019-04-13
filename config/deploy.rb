@@ -60,8 +60,7 @@ namespace :puma do
   desc 'start application'
   task :start do
     on roles(:app) do
-      # invoke 'pumactl:phased-restart'
-      puts "A solution to this should be found."
+      invoke 'pumactl:restart'
     end
   end
 end
@@ -70,21 +69,20 @@ namespace :deploy do
   desc 'Initial Deploy'
   task :initial do
     on roles(:app) do
-      before 'deploy:restart', 'pumactl:restart'
+      before 'deploy:restart', 'pumactl:start'
       invoke 'deploy'
     end
   end
 
   desc 'Restart application'
   task :restart do
-    on roles(:app) do
-      invoke 'pumactl:phased-restart'
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'pumactl:restart'
     end
   end
 
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :'deploy:publishing', :'pumactl:phased-restart'
 end
 
 namespace :rails do
