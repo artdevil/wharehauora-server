@@ -25,6 +25,9 @@ gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', 
 # Use Postgresql as the database for Active Record
 gem 'pg', '< 1.0.0'
 
+# Using puma as server
+gem 'puma'
+
 # for logins
 gem 'devise'
 gem 'devise_invitable'
@@ -76,7 +79,11 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'nokogiri', '>= 1.8.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
-group :production do
+# notify if there any error come from server
+gem 'exception_notification'
+gem 'slack-notifier'
+
+group :production, :staging do
   # for heroku
   # gem 'newrelic_rpm'
   gem 'rails_12factor'
@@ -132,4 +139,15 @@ group :test do
   gem 'pundit-matchers', '~> 1.3.0'
   gem 'rails-controller-testing'
   gem 'timecop'
+end
+
+group :development, :test do
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+  gem 'capistrano-rake',    require: false
+  gem 'capistrano-pumactl', require: false
+  gem 'capistrano-faster-assets', require: false
 end
