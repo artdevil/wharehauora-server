@@ -51,13 +51,13 @@ class SensorsIngest
     uri = URI.parse ENV['CLOUDMQTT_URL'] || 'mqtt://localhost:1883'
     # the Heroku managed env variable isn't SSL
     # but we gotta be better than that!
-    port = ENV['MQTT_SSL_PORT']
+    port = ENV['MQTT_SSL_PORT'] || uri.port
     {
-      remote_host: uri.host,
-      remote_port: port,
+      host: uri.host,
+      port: port,
       username: uri.user,
       password: uri.password,
-      ssl: true
+      ssl: ENV['MQTT_SSL_PORT'].present?
     }
   end
 
