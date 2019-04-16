@@ -30,8 +30,8 @@ Rails.application.routes.draw do
     resources :readings, only: [:index]
   end
 
-  namespace :api do
-    namespace :v1 do
+  namespace :api, default: { format: 'json' } do
+    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
       jsonapi_resources :home_types, only: %i[index show]
       jsonapi_resources :room_types, only: %i[index show]
       jsonapi_resources :users
