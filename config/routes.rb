@@ -30,14 +30,17 @@ Rails.application.routes.draw do
     resources :readings, only: [:index]
   end
 
-  namespace :api do
-    namespace :v1 do
+  namespace :api, default: { format: 'json' } do
+    devise_for :users, controllers: {
+      registrations: 'api/users/registrations',
+    }, skip: [:sessions, :password]
+
+    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
       jsonapi_resources :home_types, only: %i[index show]
       jsonapi_resources :room_types, only: %i[index show]
       jsonapi_resources :users
       jsonapi_resources :sensors
       jsonapi_resources :readings, only: [:show]
-
       jsonapi_resources :homes do
         jsonapi_resources :rooms, only: [:index]
         jsonapi_resources :sensors, only: [:index]
@@ -48,6 +51,7 @@ Rails.application.routes.draw do
         jsonapi_resources :readings, only: [:index]
       end
     end
+    
   end
 
   namespace :admin do
