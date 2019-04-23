@@ -105,3 +105,45 @@ namespace :rails do
     exec %Q(ssh rails@#{host} -t "bash --login -c 'cd #{fetch(:deploy_to)}/current && #{command}'")
   end
 end
+
+namespace :sensors_read do
+  def sensors_read_pid
+    "#{shared_path}/tmp/pids/sensors_read.pid"
+  end
+
+  def pid_file_exists?
+    test(*("[ -f #{sensors_read_pid} ]").split(' '))
+  end
+
+  def pid_process_exists?
+    pid_file_exists? and test(*("kill -0 $( cat #{sensors_read_pid} )").split(' '))
+  end
+
+  task :start do
+    on roles(:app) do
+      if !pid_process_exists?
+        with RAILS_ENV: fetch(:environment) do
+          within "#{fetch(:deploy_to)}/current/" do
+            execute :bundle, :exec, "BACKGROUND=true PIDFILE=#{sidekiq_pid} LOG_LEVEL=info rake sensors:ingest"
+          end
+        end
+      end
+    end
+  end
+
+  task :stop do
+    on roles(:app) do
+      if pid_process_exists?
+        execute "kill `cat #{sidekiq_pid}`"
+        execute "rm #{sidekiq_pid}"
+      end
+    end
+  end
+
+  task :restart do
+    on roles(:app) do
+      invoke "sensors_read:stop"
+      invoke "sensors_read:start"
+    end
+  end
+end
