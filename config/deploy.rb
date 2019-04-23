@@ -122,11 +122,8 @@ namespace :sensors_read do
   task :start do
     on roles(:app) do
       if !pid_process_exists?
-        with RAILS_ENV: fetch(:environment) do
-          within "#{fetch(:deploy_to)}/current/" do
-            execute "cd /home/rails/apps/staging/wharehauora-server/current/scripts && ./sensor.sh #{fetch(:rails_env)} #{fetch(:deploy_to)}/current #{sensors_read_pid}"
-          end
-        end
+        # https://stackoverflow.com/questions/10889621/launching-background-process-in-capistrano-task/34622311
+        execute "cd #{release_path} && (nohup #{fetch(:rvm_path)}/bin/rvm default do bundle exec rake sensors:ingest BACKGROUND=true PIDFILE=#{sensors_read_pid} RAILS_ENV=#{fetch(:rails_env)} &) && sleep 1"
       end
     end
   end
@@ -147,3 +144,5 @@ namespace :sensors_read do
     end
   end
 end
+
+after 'deploy:restart', 'sensors_read:restart'

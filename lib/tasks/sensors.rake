@@ -6,8 +6,8 @@ require 'uri'
 namespace :sensors do
   desc 'Subscribe to incoming sensor messages'
   task ingest: :environment do
-    Rails.logger       = Logger.new(Rails.root.join('log', 'daemon.log'))
-    Rails.logger.level = Logger.const_get((ENV['LOG_LEVEL'] || 'info').upcase)
+    Rails.logger       = Logger.new(Rails.root.join('log', 'sensor.log'))
+    Rails.logger.level = Logger.const_get('INFO')
 
     if ENV['BACKGROUND']
       Process.daemon(true, true)
