@@ -11,7 +11,7 @@ namespace :sensors do
 
     if ENV['BACKGROUND']
       puts 'proccess daemon'
-      Process.daemon(true, true)
+      Process.daemon(false, true)
     end
 
     if ENV['PIDFILE']

@@ -124,7 +124,7 @@ namespace :sensors_read do
       if !pid_process_exists?
         with RAILS_ENV: fetch(:environment) do
           within "#{fetch(:deploy_to)}/current/" do
-            execute :bundle, :exec, "BACKGROUND=true PIDFILE=#{sidekiq_pid} LOG_LEVEL=info rake sensors:ingest"
+            execute :bundle, :exec,  "rake sensors:ingest BACKGROUND=true LOG_LEVEL=info PIDFILE=#{sensors_read_pid} RAILS_ENV=#{fetch(:rails_env)}"
           end
         end
       end
@@ -134,8 +134,8 @@ namespace :sensors_read do
   task :stop do
     on roles(:app) do
       if pid_process_exists?
-        execute "kill `cat #{sidekiq_pid}`"
-        execute "rm #{sidekiq_pid}"
+        execute "kill `cat #{sensors_read_pid}`"
+        execute "rm #{sensors_read_pid}"
       end
     end
   end
