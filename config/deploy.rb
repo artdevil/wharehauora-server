@@ -123,7 +123,9 @@ namespace :sensors_read do
     on roles(:app) do
       if !pid_process_exists?
         with RAILS_ENV: fetch(:environment) do
-          execute "cd #{fetch(:deploy_to)}/current; ./scripts/sensor.sh #{fetch(:rails_env)} #{sensors_read_pid}"
+          within "#{fetch(:deploy_to)}/current/" do
+            execute "cd /home/rails/apps/staging/wharehauora-server/current/scripts && ./sensor.sh #{fetch(:rails_env)} #{fetch(:deploy_to)}/current #{sensors_read_pid}"
+          end
         end
       end
     end
