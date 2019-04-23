@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :readings, only: [:index]
   end
 
-  namespace :api, default: { format: 'json' } do
+  namespace :api do
     devise_for :users, controllers: {
       registrations: 'api/users/registrations',
     }, skip: [:sessions, :password]
