@@ -10,9 +10,7 @@ namespace :sensors do
     Rails.logger.level = Logger.const_get((ENV['LOG_LEVEL'] || 'info').upcase)
 
     if ENV['BACKGROUND']
-      puts 'proccess daemon'
-      puts ENV['CLOUDMQTT_URL']
-      Process.daemon(false, true)
+      Process.daemon(true, true)
     end
 
     if ENV['PIDFILE']

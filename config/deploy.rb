@@ -124,7 +124,8 @@ namespace :sensors_read do
       if !pid_process_exists?
         with RAILS_ENV: fetch(:environment) do
           within "#{fetch(:deploy_to)}/current/" do
-            execute :bundle, :exec,  "rake sensors:ingest BACKGROUND=true LOG_LEVEL=info PIDFILE=#{sensors_read_pid} RAILS_ENV=#{fetch(:rails_env)}"
+            execute "cd #{fetch(:deploy_to)}/current/"
+            execute "./scripts/sensor.sh #{fetch(:rails_env)} #{sensors_read_pid}"
           end
         end
       end
