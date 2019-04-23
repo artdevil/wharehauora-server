@@ -145,4 +145,4 @@ namespace :sensors_read do
   end
 end
 
-after 'deploy:restart', 'sensors_read:restart'
+after 'pumactl:restart', 'sensors_read:restart'
