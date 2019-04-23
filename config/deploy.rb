@@ -123,10 +123,7 @@ namespace :sensors_read do
     on roles(:app) do
       if !pid_process_exists?
         with RAILS_ENV: fetch(:environment) do
-          within "#{fetch(:deploy_to)}/current/" do
-            execute "cd #{fetch(:deploy_to)}/current/"
-            execute "./scripts/sensor.sh #{fetch(:rails_env)} #{sensors_read_pid}"
-          end
+          execute "cd #{fetch(:deploy_to)}/current; ./scripts/sensor.sh #{fetch(:rails_env)} #{sensors_read_pid}"
         end
       end
     end

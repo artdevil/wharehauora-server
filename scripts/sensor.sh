@@ -4,6 +4,8 @@
 
 APP="$0"
 STAGE="$1"
-PIDFILE="$2"
+PATH_DEPLOY="$2"
+PIDFILE="$3"
 
-bundle exec rake sensors:ingest BACKGROUND=true LOG_LEVEL=info PIDFILE=$PIDFILE RAILS_ENV=$STAGE;
+cd $PATH_DEPLOY;
+RAILS_ENV=$STAGE BACKGROUND=true LOG_LEVEL=info PIDFILE=$PIDFILE bundle exec rake sensors:ingest;
