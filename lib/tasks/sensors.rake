@@ -11,7 +11,7 @@ namespace :sensors do
 
     if ENV['BACKGROUND']
       puts 'proccess daemon'
-      puts ENV['MQTT_SSL_PORT']
+      puts ENV['CLOUDMQTT_URL']
       Process.daemon(false, true)
     end
 
