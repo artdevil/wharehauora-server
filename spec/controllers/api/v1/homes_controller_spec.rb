@@ -58,7 +58,7 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
         include_examples 'token belongs to home owner'
 
-        it { expect(response.status).to eq 200 }
+        it { expect(response).to have_http_status(:success) }
         include_examples 'response includes my home'
         include_examples 'response includes public homes'
         include_examples 'response does not includes private homes'
@@ -67,59 +67,58 @@ RSpec.describe Api::V1::HomesController, type: :controller do
       context 'invalid access token' do
         before { get :index, format: :json }
 
-        include_examples 'response includes public homes'
-        include_examples 'response does not includes private homes'
+        it { expect(response).to have_http_status(401) }
       end
     end
   end
 
-  # describe '#create' do
-  #   subject { JSON.parse(response.body)['data'] }
+  describe '#create' do
+    subject { JSON.parse(response.body)['data'] }
 
-  #   let(:body) do
-  #     {
-  #       "type": 'homes',
-  #       "attributes": {
-  #         "name": 'home home home name',
-  #         "owner-id": my_home.owner.id
-  #       }
-  #     }
-  #   end
+    let(:body) do
+      {
+        "type": 'homes',
+        "attributes": {
+          "name": 'home home home name',
+          "owner-id": my_home.owner.id
+        }
+      }
+    end
   
-  #   before do
-  #     request.headers.merge! headers
-  #     post :create, params: { data: body, access_token: token.token }
-  #   end
+    before do
+      request.headers.merge! headers
+      post :create, params: { data: body, access_token: token.token }
+    end
 
-  #   let(:attributes) { subject['attributes'] }
+    let(:attributes) { subject['attributes'] }
 
-  #   it { expect(response).to have_http_status(:success) }
-  #   it { expect(attributes['name']).to eq 'home home home name' }
-  #   it { expect(Home.last.owner.id).to eq my_home.owner.id }
-  # end
+    it { expect(response).to have_http_status(:success) }
+    it { expect(attributes['name']).to eq 'home home home name' }
+    it { expect(Home.last.owner.id).to eq my_home.owner.id }
+  end
 
-  # describe '#update' do
-  #   subject { JSON.parse(response.body)['data'] }
+  describe '#update' do
+    subject { JSON.parse(response.body)['data'] }
 
-  #   let(:home_type) { FactoryBot.create :home_type }
-  #   let(:body) do
-  #     {
-  #       "type": 'homes',
-  #       "id": my_home.id,
-  #       "attributes": {
-  #         "name": 'new home name',
-  #         "home-type-id": home_type.id
-  #       }
-  #     }
-  #   end
+    let(:home_type) { FactoryBot.create :home_type }
+    let(:body) do
+      {
+        "type": 'homes',
+        "id": my_home.id,
+        "attributes": {
+          "name": 'new home name',
+          "home-type-id": home_type.id
+        }
+      }
+    end
 
-  #   before do
-  #     request.headers.merge! headers
-  #     patch :update, params: { id: my_home.to_param, data: body, access_token: token.token }
-  #   end
+    before do
+      request.headers.merge! headers
+      patch :update, params: { id: my_home.to_param, data: body, access_token: token.token }
+    end
 
-  #   it { expect(Home.find(my_home.id).name).to eq 'new home name' }
-  #   it { expect(response).to have_http_status(:success) }
-  #   it { expect(subject['attributes']['home-type-id']).to eq(home_type.id) }
-  # end
+    it { expect(Home.find(my_home.id).name).to eq 'new home name' }
+    it { expect(response).to have_http_status(:success) }
+    it { expect(subject['attributes']['home-type-id']).to eq(home_type.id) }
+  end
 end

@@ -41,7 +41,7 @@ class Message < ApplicationRecord
     self.topic = topic
     self.payload = payload
     case version
-    when 'v1'
+    when 'wharehauora'
       decode_v1
     when 'v2'
       decode_v2
@@ -57,6 +57,8 @@ class Message < ApplicationRecord
 
   private
 
+  ##
+  # format given /sensors/wharehauora/HOME-ID/SENSOR-NODE-ID/CHILD-SENSOR-ID/CMD-TYPE/ACK-FLAG/SUB-TYPE
   def decode_v1
     (home_id, node_id, child_sensor_id, message_type, ack, sub_type) = topic.split('/')[3..-1]
     update!(
