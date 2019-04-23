@@ -28,7 +28,7 @@ class Sensor < ApplicationRecord
   belongs_to :home, counter_cache: true
   validates :home, presence: true
   validate :same_home_as_room
-  validates :mac_address, uniqueness: true, allow_nil: true
+  validates :mac_address, uniqueness: { scope: :home_id }, allow_nil: true
 
   belongs_to :room, counter_cache: true, optional: true
 

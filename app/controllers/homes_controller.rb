@@ -14,7 +14,7 @@ class HomesController < ApplicationController
     respond_with(@homes)
   end
 
-  def show
+  def show 
     redirect_to home_rooms_path(@home)
   end
 
@@ -41,9 +41,7 @@ class HomesController < ApplicationController
   end
 
   def update
-    if @home.update(home_params)
-      @home.provision_mqtt! if @home.gateway_mac_address.present?
-    end
+    @home.update(home_params)
     respond_with(@home)
   end
 

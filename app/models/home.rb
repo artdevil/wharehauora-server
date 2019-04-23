@@ -72,12 +72,12 @@ class Home < ApplicationRecord
   validates :owner, presence: true
   before_validation :fix_gateway_address
   validates :gateway_mac_address, uniqueness: true,
-                                  allow_blank: true,
                                   format: { with: /\A[A-F0-9]*\z/, message: 'should have only letters A-F and numbers' }
 
+  ##
+  # old function we don't used it anymore but keep this code in case
+  # old home need doing provision
   def provision_mqtt!
-    return if gateway_mac_address.blank?
-
     ActiveRecord::Base.transaction do
       mu = MqttUser.where(home: self).first_or_initialize
       mu.provision!
@@ -90,7 +90,7 @@ class Home < ApplicationRecord
   end
 
   def selected_other_residents_ethnics?
-    !Home::RESIDENTS_ETHNICS_LIST.include?(residents_ethnics)
+    other_residents_ethnics.present?
   end
 
   def other_residents_ethnics
