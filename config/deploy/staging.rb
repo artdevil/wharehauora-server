@@ -1,7 +1,7 @@
 server '104.248.153.164', port: 22, roles: [:web, :app, :db], primary: true
 
 set :stage,     :staging
-set :branch,    :master
+set :branch,    :mqtt_topic
 set :rails_env, :staging
 set :rack_env,  :staging
 set :puma_env,  :staging
