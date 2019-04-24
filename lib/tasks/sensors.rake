@@ -6,8 +6,7 @@ require 'uri'
 namespace :sensors do
   desc 'Subscribe to incoming sensor messages'
   task ingest: :environment do
-    Rails.logger       = Logger.new(Rails.root.join('log', 'sensor.log'))
-    Rails.logger.level = Logger.const_get('INFO')
+    Rails.logger = Logger.new(Rails.root.join('log', 'sensor.log'))
 
     if ENV['BACKGROUND']
       Process.daemon(true, true)
@@ -34,15 +33,21 @@ namespace :sensors do
 end
 
 class SensorsIngest
+  def writing_log(log, log_type = 'info')
+    puts log
+    Rails.logger.send(log_type, log)
+  end
+
   def process
     MQTT::Client.connect(connection_options) do |c|
       # The block will be called when you messages arrive to the topic
       c.get('/sensors/#') do |topic, message|
-        puts "#{topic} #{message}"
+        log_message = "#{topic} #{message}"
+        writing_log(log_message)
         begin
           Message.new.decode(topic, message)
         rescue ActiveRecord::RecordNotFound => e
-          puts e
+          writing_log(e.message, 'error')
         end
       end
     end
