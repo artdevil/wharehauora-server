@@ -143,6 +143,12 @@ namespace :sensors_read do
       invoke "sensors_read:start"
     end
   end
+
+  task :logs do
+    on roles(:app), :primary => true do |h|
+      execute "tail -f #{release_path}/log/sensor.log"
+    end
+  end
 end
 
 after 'pumactl:restart', 'sensors_read:restart'
