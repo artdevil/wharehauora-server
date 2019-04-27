@@ -2,7 +2,7 @@
 
 class Api::Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token
-  before_action :not_allowed, only: %i(new edit cancel)
+  before_action :not_allowed, only: %i[new edit cancel]
 
   clear_respond_to
   respond_to :json

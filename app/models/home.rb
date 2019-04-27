@@ -71,8 +71,8 @@ class Home < ApplicationRecord
   validates :name, presence: true
   validates :owner, presence: true
   before_validation :fix_gateway_address
-  validates :gateway_mac_address, 
-            presence: true, 
+  validates :gateway_mac_address,
+            presence: true,
             format: { with: /\A[A-F0-9]*\z/, message: 'should have only letters A-F and numbers' }
 
   ##
