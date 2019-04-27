@@ -7,6 +7,15 @@ class Api::Users::RegistrationsController < Devise::RegistrationsController
   clear_respond_to
   respond_to :json
 
+  def new
+  end
+
+  def edit
+  end
+
+  def cancel
+  end
+
   def not_allowed
     raise MethodNotAllowed
   end
