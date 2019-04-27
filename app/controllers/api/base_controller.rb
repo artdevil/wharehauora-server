@@ -13,7 +13,5 @@ class Api::BaseController < JSONAPI::ResourceController
 
   def current_user
     return current_resource_owner
-
-    super
   end
 end

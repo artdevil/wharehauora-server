@@ -8,17 +8,13 @@ namespace :sensors do
   task ingest: :environment do
     Rails.logger = Logger.new(Rails.root.join('log', 'sensor.log'))
 
-    if ENV['BACKGROUND']
-      Process.daemon(true, true)
-    end
+    Process.daemon(true, true) if ENV['BACKGROUND']
 
-    if ENV['PIDFILE']
-      File.open(ENV['PIDFILE'], 'w') { |f| f << Process.pid }
-    end
-  
+    File.open(ENV['PIDFILE'], 'w') { |f| f << Process.pid } if ENV['PIDFILE']
+
     Signal.trap('TERM') { abort }
-  
-    Rails.logger.info "Start daemon..."
+
+    Rails.logger.info 'Start daemon...'
 
     begin
       SensorsIngest.new.process
@@ -42,8 +38,7 @@ class SensorsIngest
     MQTT::Client.connect(connection_options) do |c|
       # The block will be called when you messages arrive to the topic
       c.get('/sensors/#') do |topic, message|
-        log_message = "#{topic} #{message}"
-        writing_log(log_message)
+        writing_log("#{topic} #{message}")
         begin
           Message.new.decode(topic, message)
         rescue ActiveRecord::RecordNotFound => e

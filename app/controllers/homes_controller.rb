@@ -14,7 +14,7 @@ class HomesController < ApplicationController
     respond_with(@homes)
   end
 
-  def show 
+  def show
     redirect_to home_rooms_path(@home)
   end
 
