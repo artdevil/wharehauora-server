@@ -83,6 +83,12 @@ RSpec.describe HomesController, type: :controller do
         it { expect(subject.owner).to eq user }
       end
 
+      describe 'Creating a home without mac address' do
+        subject { post :create, params: { home: { name: 'My new home', gateway_mac_address: nil } } }
+        
+        it { expect(subject).to render_template('new') }
+      end
+
       describe 'creating a home for someone else' do
         let(:params) do
           {
@@ -100,9 +106,9 @@ RSpec.describe HomesController, type: :controller do
       describe 'Creating a home with same mac address' do
         before { FactoryBot.create(:home, gateway_mac_address: '123A456B780') }
 
-        before { post :create, params: { home: { name: 'My new home', gateway_mac_address: '123A456B780' } } }
-
-        it { expect(response).to render_template('new') }
+        subject { post :create, params: { home: { name: 'My new home', gateway_mac_address: '123A456B780' } } }
+        
+        it { expect(subject).to redirect_to(home_rooms_path(assigns(:home))) }
       end
     end
 

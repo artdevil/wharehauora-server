@@ -80,7 +80,8 @@ RSpec.describe Api::V1::HomesController, type: :controller do
         "type": 'homes',
         "attributes": {
           "name": 'home home home name',
-          "owner-id": my_home.owner.id
+          "owner-id": my_home.owner.id,
+          "gateway-mac-address": 'ABCDEF1010'
         }
       }
     end
