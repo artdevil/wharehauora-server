@@ -1,5 +1,5 @@
 # http://blog.blakesimpson.co.uk/read/80-sidekiq-tasks-for-capistrano-3
-after 'pumactl:restart', 'sidekiq:restart'
+# after 'pumactl:restart', 'sidekiq:restart'
 
 namespace :sidekiq do
   def sidekiq_pid
