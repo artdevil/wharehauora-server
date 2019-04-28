@@ -40,10 +40,13 @@ class Message < ApplicationRecord
   def decode(topic, payload)
     self.topic = topic
     self.payload = payload
-    if version == 'v2'
+    case version
+    when 'wharehauora'
+      decode_v1
+    when 'v2'
       decode_v2
     else
-      decode_v1
+      decode_v3
     end
     self
   end
@@ -54,6 +57,8 @@ class Message < ApplicationRecord
 
   private
 
+  ##
+  # format given /sensors/wharehauora/HOME-ID/SENSOR-NODE-ID/CHILD-SENSOR-ID/CMD-TYPE/ACK-FLAG/SUB-TYPE
   def decode_v1
     (home_id, node_id, child_sensor_id, message_type, ack, sub_type) = topic.split('/')[3..-1]
     update!(
@@ -67,9 +72,29 @@ class Message < ApplicationRecord
     )
   end
 
+  ##
+  # format given /sensors/v2/GATEWAY-NODE-ID/SENSOR-NODE-ID/CHILD-SENSOR-ID/CMD-TYPE/ACK-FLAG/SUB-TYPE
   def decode_v2
     (gateway_mac_address, sensor_mac, child_sensor_id, message_type, ack, sub_type) = topic.split('/')[3..-1]
     home = Home.find_by!(gateway_mac_address: gateway_mac_address)
+    sensor = Sensor.find_or_create_by!(home: home, mac_address: sensor_mac, node_id: sensor_mac)
+
+    update!(
+      sensor: sensor,
+      node_id: sensor_mac,
+      child_sensor_id: child_sensor_id,
+      message_type: message_type,
+      ack: ack,
+      sub_type: sub_type,
+      payload: payload
+    )
+  end
+
+  ##
+  # format given /sensors/v3/USER-ID/GATEWAY-NODE-ID/SENSOR-NODE-ID/CHILD-SENSOR-ID/CMD-TYPE/ACK-FLAG/SUB-TYPE
+  def decode_v3
+    (home_id, gateway_mac_address, sensor_mac, child_sensor_id, message_type, ack, sub_type) = topic.split('/')[3..-1]
+    home = Home.find_by!(id: home_id, gateway_mac_address: gateway_mac_address)
     sensor = Sensor.find_or_create_by!(home: home, mac_address: sensor_mac, node_id: sensor_mac)
 
     update!(

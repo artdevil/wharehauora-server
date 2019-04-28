@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Message, type: :model do
   let(:home) { FactoryBot.create :home, gateway_mac_address: '123A456B789' }
 
-  describe 'decode' do
+  describe 'decode' do 
     subject { Message.new.decode(topic, payload) }
 
     let(:payload) { '20.9' }
@@ -32,6 +32,14 @@ RSpec.describe Message, type: :model do
 
         include_examples 'decodes message'
         it { expect(subject.version).to eq 'v2' }
+        it { expect(subject.sensor.mac_address).to eq 'ABC123' }
+      end
+      
+      context 'v3' do
+        let(:topic) { "/sensors/v3/#{home.id}/#{home.gateway_mac_address}/ABC123/1/1/0/0" }
+
+        include_examples 'decodes message'
+        it { expect(subject.version).to eq 'v3' }
         it { expect(subject.sensor.mac_address).to eq 'ABC123' }
       end
     end
@@ -69,6 +77,12 @@ RSpec.describe Message, type: :model do
 
       context 'v2' do
         let(:topic) { "/sensors/v2/#{home.gateway_mac_address}/#{sensor.mac_address}/1/1/0/0" }
+
+        include_examples 'decodes messages'
+      end
+
+      context 'v3' do
+        let(:topic) { "/sensors/v3/#{home.id}/#{home.gateway_mac_address}/#{sensor.mac_address}/1/1/0/0" }
 
         include_examples 'decodes messages'
       end

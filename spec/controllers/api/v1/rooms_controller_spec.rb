@@ -10,21 +10,30 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     }
   end
   let(:room_type) { FactoryBot.create :room_type, min_temperature: 10, max_temperature: 30 }
-  let(:owner)     { room.home.owner                                                        }
+  let(:room)      { FactoryBot.create :public_room, room_type: room_type                   }
+  let(:home)      { room.home                                                              }
+  let(:owner)     { home.owner                                                             }
   let(:admin)     { FactoryBot.create :admin                                               }
+  let(:otheruser) { FactoryBot.create :user                                                }
+  
   let(:whanau) do
     whanau = FactoryBot.create :user
     room.home.users << whanau
     whanau
   end
 
-  let(:otheruser) { FactoryBot.create :user }
+  let(:application) { FactoryBot.create(:oauth_application) }
+  let(:token) do
+    FactoryBot.create(:oauth_access_token,
+                      application: application,
+                      resource_owner_id: user.try(:id))
+  end
 
   # do nothing normally. Contexts below can add readings
   let(:create_readings) {}
 
   describe '#show' do
-    let(:valid_params) { { id: room.id, format: :json } }
+    let(:params) { { id: room.id, format: :json, access_token: token.token } }
 
     shared_examples 'can see summaries' do
       it { expect(response).to have_http_status(:success) }
@@ -68,8 +77,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     before do
       create_readings
-      sign_in user unless user.nil?
-      get :show, params: valid_params
+      get :show, params: params
     end
 
     describe 'When room is in a public home' do
@@ -157,9 +165,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   describe '#create' do
     subject { JSON.parse(response.body)['data'] }
+    let(:user) { owner }
 
-    let(:home)  { FactoryBot.create :home, owner: owner }
-    let(:owner) { FactoryBot.create :user               }
     let(:body) do
       {
         "type": 'rooms',
@@ -170,9 +177,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       }
     end
     before do
-      sign_in owner
       request.headers.merge! headers
-      post :create, params: { data: body }
+      post :create, params: { data: body, access_token: token.token }
     end
 
     let(:attributes) { subject['attributes'] }
@@ -185,8 +191,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   describe '#update' do
     subject { JSON.parse(response.body)['data'] }
+    let(:user) { owner }
 
-    let(:room) { FactoryBot.create :room, room_type: room_type }
     let(:body) do
       {
         "type": 'rooms',
@@ -198,9 +204,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     before do
-      sign_in owner
       request.headers.merge! headers
-      patch :update, params: { id: room.to_param, data: body }
+      patch :update, params: { id: room.to_param, data: body, access_token: token.token }
     end
 
     it { expect(Room.find(room.id).name).to eq 'new room name' }

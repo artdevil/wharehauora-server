@@ -15,18 +15,18 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
   let!(:user) { FactoryBot.create :user }
 
-  context 'OAuth authenticated ' do
-    subject { JSON.parse response.body }
+  let!(:application) { FactoryBot.create(:oauth_application) }
+  let!(:token) do
+    FactoryBot.create(:oauth_access_token,
+                      application: application,
+                      resource_owner_id: my_home.owner.id)
+  end
 
-    let!(:application) { FactoryBot.create(:oauth_application) }
+  context 'OAuth authenticated ' do
+    subject { JSON.parse(response.body) }
 
     describe 'GET #index' do
       shared_examples 'token belongs to home owner' do
-        let!(:token) do
-          FactoryBot.create(:oauth_access_token,
-                            application: application,
-                            resource_owner_id: my_home.owner.id)
-        end
         it { expect(my_home.owner.id).to eq(token.resource_owner_id) }
         it { expect(user.owned_homes).to include(my_home) }
       end
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
         include_examples 'token belongs to home owner'
 
-        it { expect(response.status).to eq 200 }
+        it { expect(response).to have_http_status(:success) }
         include_examples 'response includes my home'
         include_examples 'response includes public homes'
         include_examples 'response does not includes private homes'
@@ -67,8 +67,7 @@ RSpec.describe Api::V1::HomesController, type: :controller do
       context 'invalid access token' do
         before { get :index, format: :json }
 
-        include_examples 'response includes public homes'
-        include_examples 'response does not includes private homes'
+        it { expect(response).to have_http_status(401) }
       end
     end
   end
@@ -76,39 +75,37 @@ RSpec.describe Api::V1::HomesController, type: :controller do
   describe '#create' do
     subject { JSON.parse(response.body)['data'] }
 
-    let(:owner) { FactoryBot.create :user }
     let(:body) do
       {
         "type": 'homes',
         "attributes": {
           "name": 'home home home name',
-          "owner-id": owner.id
+          "owner-id": my_home.owner.id,
+          "gateway-mac-address": 'ABCDEF1010'
         }
       }
     end
+  
     before do
-      sign_in owner
       request.headers.merge! headers
-      post :create, params: { data: body }
+      post :create, params: { data: body, access_token: token.token }
     end
 
     let(:attributes) { subject['attributes'] }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(attributes['name']).to eq 'home home home name' }
-    it { expect(Home.last.owner.id).to eq owner.id }
+    it { expect(Home.last.owner.id).to eq my_home.owner.id }
   end
 
   describe '#update' do
     subject { JSON.parse(response.body)['data'] }
 
-    let(:home) { FactoryBot.create :home }
     let(:home_type) { FactoryBot.create :home_type }
-    let(:owner)     { home.owner                   }
     let(:body) do
       {
         "type": 'homes',
-        "id": home.id,
+        "id": my_home.id,
         "attributes": {
           "name": 'new home name',
           "home-type-id": home_type.id
@@ -117,12 +114,11 @@ RSpec.describe Api::V1::HomesController, type: :controller do
     end
 
     before do
-      sign_in owner
       request.headers.merge! headers
-      patch :update, params: { id: home.to_param, data: body }
+      patch :update, params: { id: my_home.to_param, data: body, access_token: token.token }
     end
 
-    it { expect(Home.find(home.id).name).to eq 'new home name' }
+    it { expect(Home.find(my_home.id).name).to eq 'new home name' }
     it { expect(response).to have_http_status(:success) }
     it { expect(subject['attributes']['home-type-id']).to eq(home_type.id) }
   end

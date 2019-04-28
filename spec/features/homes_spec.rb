@@ -40,7 +40,7 @@ RSpec.describe 'Homes', type: :feature do
     it { expect(page).to have_http_status 200 }
     it { expect(page).to have_text 'Home was successfully created' }
     it { expect(page).to have_text 'Activate sensors in your home, and they will appear here.' }
-    it { expect(page).to have_link 'Provision MQTT' }
+    it { expect(page).to have_text "Your home id are #{Home.last.id}, enter this to your gateway for doing setup" }
 
     it { expect(Home.last.name).to eq 'cool new home' }
     it { expect(Home.last.gateway_mac_address).to eq 'ABCD99' }
