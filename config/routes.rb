@@ -2,7 +2,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq'
+  authenticate :user, lambda { |u| u.roles.pluck(:name).include?('janitor') } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   devise_for :users
 
