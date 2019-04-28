@@ -6,11 +6,9 @@ class MessageDecodeWorker
   sidekiq_options queue: 'message_decode'
 
   def perform(topic, message)
-    begin
-      Message.new.decode(topic, message)
-    rescue ActiveRecord::RecordNotFound => e
-      # we only retry message unless not found error
-      puts e.message
-    end
+    Message.new.decode(topic, message)
+  rescue ActiveRecord::RecordNotFound => e
+    # we only retry message unless not found error
+    logger.info(e.message)
   end
 end
