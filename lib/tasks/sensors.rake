@@ -6,6 +6,16 @@ require 'uri'
 namespace :sensors do
   desc 'Subscribe to incoming sensor messages'
   task ingest: :environment do
+    Rails.logger = Logger.new(Rails.root.join('log', 'sensor.log'))
+
+    Process.daemon(true, true) if ENV['BACKGROUND']
+
+    File.open(ENV['PIDFILE'], 'w') { |f| f << Process.pid } if ENV['PIDFILE']
+
+    Signal.trap('TERM') { abort }
+
+    Rails.logger.info 'Start daemon...'
+
     begin
       SensorsIngest.new.process
     rescue Exception => e
@@ -19,16 +29,17 @@ namespace :sensors do
 end
 
 class SensorsIngest
+  def writing_log(log, log_type = 'info')
+    puts log
+    Rails.logger.send(log_type, log)
+  end
+
   def process
     MQTT::Client.connect(connection_options) do |c|
       # The block will be called when you messages arrive to the topic
       c.get('/sensors/#') do |topic, message|
-        puts "#{topic} #{message}"
-        begin
-          Message.new.decode(topic, message)
-        rescue ActiveRecord::RecordNotFound => e
-          puts e
-        end
+        writing_log("#{topic} #{message}")
+        MessageDecodeWorker.perform_async(topic, message)
       end
     end
   end
@@ -51,13 +62,13 @@ class SensorsIngest
     uri = URI.parse ENV['CLOUDMQTT_URL'] || 'mqtt://localhost:1883'
     # the Heroku managed env variable isn't SSL
     # but we gotta be better than that!
-    port = ENV['MQTT_SSL_PORT']
+    port = ENV['MQTT_SSL_PORT'] || uri.port
     {
-      remote_host: uri.host,
-      remote_port: port,
+      host: uri.host,
+      port: port,
       username: uri.user,
       password: uri.password,
-      ssl: true
+      ssl: ENV['MQTT_SSL_PORT'].present?
     }
   end
 

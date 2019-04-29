@@ -15,5 +15,5 @@ script:
 - bundle exec rspec
 after_success:
 - "./cc-test-reporter after-build --id $CC_TEST_REPORTER_ID"
-- "[[ $TRAVIS_BRANCH = 'master' ]] && ./config/build.sh staging"
-- "[[ $TRAVIS_BRANCH = 'production' ]] && ./config/build.sh production"
+- "[[ $TRAVIS_BRANCH = 'master' ]] && ./scripts/build.sh staging"
+- "[[ $TRAVIS_BRANCH = 'production' ]] && ./scripts/build.sh production"

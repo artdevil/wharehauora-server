@@ -4,10 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Sensor, type: :model do
   describe 'sensor mac address is unique' do
+    let(:home) { FactoryBot.create :home, gateway_mac_address: '123A456B789' }
+    
     it do
-      FactoryBot.create :sensor, mac_address: 'xyz'
+      FactoryBot.create :sensor, mac_address: 'xyz', home: home
       expect do
-        FactoryBot.create :sensor, mac_address: 'xyz'
+        FactoryBot.create :sensor, mac_address: 'xyz', home: home
       end.to raise_error ActiveRecord::RecordInvalid
     end
   end

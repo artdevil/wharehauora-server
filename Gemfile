@@ -83,6 +83,9 @@ gem 'rails-html-sanitizer', '>= 1.0.4'
 gem 'exception_notification'
 gem 'slack-notifier'
 
+# sidekiq for support background job
+gem 'sidekiq'
+
 group :production, :staging do
   # for heroku
   # gem 'newrelic_rpm'
@@ -139,6 +142,7 @@ group :test do
   gem 'pundit-matchers', '~> 1.3.0'
   gem 'rails-controller-testing'
   gem 'timecop'
+  gem 'rspec-sidekiq'
 end
 
 group :development, :test do

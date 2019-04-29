@@ -6,7 +6,7 @@ FactoryBot.define do
     owner
     home_type
     is_public { false }
-    gateway_mac_address { nil }
+    gateway_mac_address { rand(10 ** 10) }
   end
 
   factory :public_home, parent: :home do
