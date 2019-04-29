@@ -39,11 +39,7 @@ class SensorsIngest
       # The block will be called when you messages arrive to the topic
       c.get('/sensors/#') do |topic, message|
         writing_log("#{topic} #{message}")
-        begin
-          Message.new.decode(topic, message)
-        rescue ActiveRecord::RecordNotFound => e
-          writing_log(e.message, 'error')
-        end
+        MessageDecodeWorker.perform_async(topic, message)
       end
     end
   end
