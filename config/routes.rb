@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  mount Apidoco::Engine, at: "/api_docs"
+
   devise_for :users
 
   use_doorkeeper do
@@ -40,21 +42,8 @@ Rails.application.routes.draw do
       registrations: 'api/users/registrations',
     }, skip: [:sessions, :password]
 
-    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
-      jsonapi_resources :home_types, only: %i[index show]
-      jsonapi_resources :room_types, only: %i[index show]
-      jsonapi_resources :users
-      jsonapi_resources :sensors
-      jsonapi_resources :readings, only: [:show]
-      jsonapi_resources :homes do
-        jsonapi_resources :rooms, only: [:index]
-        jsonapi_resources :sensors, only: [:index]
-        jsonapi_resources :readings, only: [:index]
-        jsonapi_resources :users
-      end
-      jsonapi_resources :rooms do
-        jsonapi_resources :readings, only: [:index]
-      end
+    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: :json) do
+      resources :homes, except: [:new, :edit]
     end
     
   end

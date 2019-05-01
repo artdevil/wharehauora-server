@@ -1,0 +1,11 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Index Homes",
+  "end_point": "api/homes",
+  "http_method": "GET",
+  "header": {
+    "Authentication": "Token token=<token>",
+    "Content-Type": "application/json"
+  }
+}
