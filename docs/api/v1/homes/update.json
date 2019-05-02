@@ -62,7 +62,7 @@
   }
   ],
   "header": {
-    "access_token (Oauth 2.0)": "<token>",
+    "Authorization": "Bearer <token>",
     "Content-Type": "application/json"
   },
   "examples": [{

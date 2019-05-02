@@ -1,0 +1,29 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Refresh Token",
+  "end_point": "/oauth/token",
+  "http_method": "POST",
+  "params": [{
+    "key": "refresh_token",
+    "required": true,
+    "type": "<Refresh Token>"
+  }, {
+    "key": "grant_type",
+    "required": true,
+    "type": "refresh_token"
+  }],
+  "examples": [{
+    "request": {
+      "refresh_token": "<Refresh Token>",
+      "grant_type": "refresh_token"
+    },
+    "response": {
+      "access_token": "<token>",
+      "token_type": "bearer",
+      "expires_in": 7200,
+      "refresh_token": "<token>",
+      "created_at": 1556760052
+    }
+  }]
+}

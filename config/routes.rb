@@ -43,7 +43,11 @@ Rails.application.routes.draw do
     }, skip: [:sessions, :password]
 
     scope module: :v1, constraints: ApiConstraint.new(version: 1, default: :json) do
-      resources :homes, except: [:new, :edit]
+      resources :homes, except: [:new, :edit] do
+        collection do
+          get :form_options
+        end
+      end
     end
     
   end

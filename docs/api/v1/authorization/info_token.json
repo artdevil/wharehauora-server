@@ -1,0 +1,22 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Info Token",
+  "end_point": "/oauth/token/info",
+  "http_method": "GET",
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "resource_owner_id": 10,
+      "scopes": [],
+      "expires_in_seconds": 6940,
+      "application": {
+          "uid": null
+      },
+      "created_at": 1556773698
+    }
+  }]
+}

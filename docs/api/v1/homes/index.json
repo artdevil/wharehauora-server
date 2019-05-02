@@ -5,7 +5,7 @@
   "end_point": "api/homes",
   "http_method": "GET",
   "header": {
-    "Authentication": "Token token=<token>",
+    "Authentication": "Bearer <token>",
     "Content-Type": "application/json"
   }
 }

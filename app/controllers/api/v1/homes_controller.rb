@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class Api::V1::HomesController < Api::BaseController
-  before_action :set_home, only: %i[show edit destroy update]
+  before_action :set_home, only: %i[show destroy update]
   respond_to :json
 
   def index
     authorize :home
     @homes = policy_scope(Home).paginate(page: params[:page])
+  end
+
+  def form_options
+    authorize :home
+    @home_form_options = Home.form_options(home_options_params)
   end
 
   def create
@@ -41,12 +46,16 @@ class Api::V1::HomesController < Api::BaseController
 
   def home_params
     params.permit(
-      :name, :address, :latitude, :longitude, :house_age, :city, :suburb,
+      :name, :address, :latitude, :longitude, :house_age, :city, :suburb, :home_type_id,
       :gateway_mac_address, :residents_with_respiratory_illness, :residents_with_allergies,
       :residents_with_depression, :residents_with_anxiety, :residents_with_lgbtq, :residents_with_physical_disabled,
       :residents_with_children, :residents_with_elderly,
       residents_ethnics: []
     )
+  end
+
+  def home_options_params
+    params.permit(:home_type)
   end
 
   def set_home

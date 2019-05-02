@@ -5,7 +5,7 @@
   "end_point": "api/v1/homes/:id",
   "http_method": "DELETE",
   "header": {
-    "access_token (Oauth 2.0)": "<token>",
+    "Authorization": "Bearer <token>",
     "Content-Type": "application/json"
   },
   "examples": [{
