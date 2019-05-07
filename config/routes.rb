@@ -47,6 +47,18 @@ Rails.application.routes.draw do
         collection do
           get :form_options
         end
+
+        resources :rooms, only: [:index, :update] do
+          collection do
+            get :form_options
+          end
+        end
+      end
+
+      resources :rooms, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+        collection do
+          get :form_options
+        end
       end
     end
     

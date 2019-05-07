@@ -27,7 +27,7 @@ class Room < ApplicationRecord
   belongs_to :home, counter_cache: true
   belongs_to :room_type, optional: true
 
-  has_many :readings
+  has_many :readings, dependent: :destroy
   has_many :sensors
 
   has_one :home_type, through: :home
@@ -40,6 +40,8 @@ class Room < ApplicationRecord
   scope(:with_no_sensors, -> { includes(:sensors).where(sensors: { id: nil }) })
 
   scope(:has_readings, -> { includes(:sensors).where.not(sensors: { id: nil }) })
+
+  before_destroy :checking_existing_sensors
 
   include Measurable
   include Dewpoint
@@ -83,5 +85,45 @@ class Room < ApplicationRecord
             .order(created_at: :desc)
             .limit(1)
             .first&.created_at
+  end
+
+  def analysis
+    if enough_info_to_perform_rating?
+      if comfortable?
+        'Comfortable temperature.'
+      elsif too_hot?
+        'Too hot.'
+      elsif too_cold?
+        "Too cold for a #{room.room_type.name.downcase}"
+      elsif good?
+        'Room is good.'
+      end
+    elsif !room_type.present?
+      'Edit room type to get analysis'
+    else
+      'Offline'
+    end
+  end
+
+  class << self
+    def form_options(options = [])
+      data = {
+        room_type: RoomType.select(:id, :name)
+      }
+
+      if options.present?
+        data.delete(:room_type) unless options[:room_type].present? and options[:room_type].to_bool
+      end
+      
+      return data
+    end
+  end
+
+  private
+
+  def checking_existing_sensors
+    if sensors.present?
+      errors.add(:base, 'Please unasigned sensor before deleting it')
+    end
   end
 end

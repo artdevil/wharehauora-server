@@ -2,10 +2,41 @@
   "published": true,
   "sort_order": 1,
   "name": "Index Homes",
-  "end_point": "api/homes",
+  "end_point": "/api/homes",
   "http_method": "GET",
   "header": {
     "Authentication": "Bearer <token>",
     "Content-Type": "application/json"
-  }
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "name": "Rabid Technologies",
+          "home_type": {
+              "id": 6,
+              "name": "Workplace / Office"
+          },
+          "rooms": 8,
+          "sensors": 11
+        },
+        {
+          "id": 22,
+          "name": "ADHIGUNA UTAMA SABRIL",
+          "home_type": null,
+          "rooms": 3,
+          "sensors": 3
+        },
+        {
+          "id": 27,
+          "name": "jakarta sensor",
+          "home_type": null,
+          "rooms": 2,
+          "sensors": 2
+        }
+      ]
+    }
+  }]
 }

@@ -25,6 +25,10 @@ class RoomPolicy < ApplicationPolicy
     owner? || janitor?
   end
 
+  def form_options?
+    true
+  end
+
   private
 
   class Scope < Scope

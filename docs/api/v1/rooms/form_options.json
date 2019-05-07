@@ -1,0 +1,43 @@
+{
+  "published": true,
+  "sort_order": 2,
+  "name": "Form Option Room",
+  "end_point": "/api/rooms/form_options",
+  "http_method": "GET",
+  "params": [{
+    "key": "room_type",
+    "type": "Boolean"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "room_type": true
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "room_type": [
+          {
+            "id": 6,
+            "name": "Bedroom"
+          },
+          {
+              "id": 1,
+              "name": "Living space"
+          },
+          {
+              "id": 2,
+              "name": "Child's bedroom"
+          },
+          {
+              "id": 5,
+              "name": "Baby's room"
+          }
+        ]
+      }
+    }
+  }]
+}

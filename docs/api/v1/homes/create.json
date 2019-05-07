@@ -2,7 +2,7 @@
   "published": true,
   "sort_order": 2,
   "name": "Create Home",
-  "end_point": "api/homes",
+  "end_point": "/api/homes",
   "http_method": "POST",
   "params": [{
     "key": "name",

@@ -29,12 +29,6 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    if @room.sensors.empty?
-      ActiveRecord::Base.transaction do
-        Reading.where(room_id: @room.id).delete_all
-        @room.destroy
-      end
-    end
     respond_with @room, location: home_rooms_path(@room.home)
   end
 

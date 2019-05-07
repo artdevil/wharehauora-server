@@ -6,7 +6,7 @@ class Api::V1::HomesController < Api::BaseController
 
   def index
     authorize :home
-    @homes = policy_scope(Home).paginate(page: params[:page])
+    @homes = policy_scope(Home).includes(:home_type).paginate(page: params[:page])
   end
 
   def form_options

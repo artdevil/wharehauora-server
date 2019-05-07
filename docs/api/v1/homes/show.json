@@ -2,7 +2,7 @@
   "published": true,
   "sort_order": 3,
   "name": "Show Home",
-  "end_point": "api/homes/:id",
+  "end_point": "/api/homes/:id",
   "http_method": "GET",
   "header": {
     "Authorization": "Bearer <token>",
