@@ -117,6 +117,16 @@ class Room < ApplicationRecord
       
       return data
     end
+
+    def filters_by(filters)
+      data = where(false)
+
+      if filters[:assigned].present?
+        data = filters[:assigned].to_bool ? data.assigned : data.unassigned
+      end
+
+      return data
+    end
   end
 
   private

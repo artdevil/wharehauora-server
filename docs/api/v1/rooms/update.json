@@ -22,8 +22,10 @@
     },
     "response": {
       "success": true,
-      "id": 28,
-      "name": "hello room"
+      "data": {
+        "id": 28,
+        "name": "hello room"
+      }
     }
   }]
 }

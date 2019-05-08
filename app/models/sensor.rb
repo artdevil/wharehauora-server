@@ -24,14 +24,13 @@
 #
 
 class Sensor < ApplicationRecord
-  before_create :create_room
-  belongs_to :home, counter_cache: true
+  
   validates :home, presence: true
   validate :same_home_as_room
   validates :mac_address, uniqueness: { scope: :home_id }
 
+  belongs_to :home, counter_cache: true
   belongs_to :room, counter_cache: true, optional: true
-
   has_many :messages, dependent: :destroy
 
   delegate :home_type, to: :home
@@ -39,9 +38,18 @@ class Sensor < ApplicationRecord
 
   scope(:joins_home, -> { joins(:room, room: :home) })
   scope(:with_no_messages, -> { includes(:messages).where(messages: { id: nil }) })
+  scope(:unassigned, -> { where(room_id: nil) })
+  scope(:assigned, -> { where.not(room_id: nil) })
+
+  before_create :create_room
+  before_update :checking_home_has_rooms, if: Proc.new{ room_id_changed? and room_id != nil }
 
   def last_message
     messages.order(created_at: :desc).first&.created_at
+  end
+
+  def name
+    mac_address.present? ? mac_address : node_id
   end
 
   def same_home_as_room
@@ -50,9 +58,27 @@ class Sensor < ApplicationRecord
     room.home_id == home_id
   end
 
+  class << self
+    def filters_by(filters)
+      data = where(false)
+
+      if filters[:assigned].present?
+        data = filters[:assigned].to_bool ? data.assigned : data.unassigned
+      end
+
+      return data
+    end
+  end
+
   private
 
   def create_room
     self.room = Room.create!(name: '{mac_address}{node_id}', home: home) if room_id.blank?
+  end
+
+  def checking_home_has_rooms
+    unless home.rooms.pluck(:id).include?(room_id)
+      self.errors.add(:room_id, 'cannot set room from different home')
+    end
   end
 end

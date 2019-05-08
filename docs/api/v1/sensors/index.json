@@ -1,0 +1,42 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Index Sensors",
+  "end_point": "/api/:home_id/sensors",
+  "http_method": "GET",
+  "header": {
+    "Authentication": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "params": [{
+    "key": "assigned",
+    "type": "Boolean",
+    "description": "Fetching sensors based on already attached to room or not"
+  }],
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": [
+        {
+          "id": 34624,
+          "name": "efgh",
+          "mac_address": "efgh",
+          "node_id": "138",
+          "first_detected": "15 days ago",
+          "room": {
+            "id": 1852,
+            "name": "megoo"
+          }
+        },
+        {
+          "id": 34625,
+          "name": "148",
+          "mac_address": "148",
+          "node_id": "138",
+          "first_detected": "15 days ago",
+          "room": null
+        }
+      ]
+    }
+  }]
+}

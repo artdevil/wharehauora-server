@@ -7,16 +7,12 @@ class Api::V1::RoomsController < Api::BaseController
   respond_to :json
 
   def index
-    @rooms = @home.rooms.includes(:room_type).order(:name).paginate(page: params[:page])
+    @rooms = @home.rooms.includes(:room_type).filters_by(filter_params).order(:name).paginate(page: params[:page])
   end
 
   def show
     skip_authorization if @room.public?
     @readings = Reading.where(room: @room).order(created_at: :desc).limit(10)
-    respond_with(@room)
-  end
-
-  def edit
     respond_with(@room)
   end
 
@@ -60,6 +56,10 @@ class Api::V1::RoomsController < Api::BaseController
 
   def permitted_room_params
     %i[name room_type_id]
+  end
+
+  def filter_params
+    params.permit(:with_sensor)
   end
 
   def room_options_params

@@ -76,24 +76,26 @@
     },
     "response": {
       "success": true,
-      "id": 28,
-      "name": "hello",
-      "address": null,
-      "latitude": null,
-      "longitude": null,
-      "house_age": null,
-      "city": null,
-      "suburb": null,
-      "gateway_mac_address": "21312312ABC",
-      "residents_with_respiratory_illness": false,
-      "residents_with_allergies": false,
-      "residents_with_depression": false,
-      "residents_with_anxiety": false,
-      "residents_with_lgbtq": false,
-      "residents_with_physical_disabled": false,
-      "residents_with_children": false,
-      "residents_with_elderly": false,
-      "residents_ethnics": ["Māori", "Pacific peoples", "Middle Eastern", "Latin American", "African", "Asian", "European"]
+      "data": {
+        "id": 28,
+        "name": "hello",
+        "address": null,
+        "latitude": null,
+        "longitude": null,
+        "house_age": null,
+        "city": null,
+        "suburb": null,
+        "gateway_mac_address": "21312312ABC",
+        "residents_with_respiratory_illness": false,
+        "residents_with_allergies": false,
+        "residents_with_depression": false,
+        "residents_with_anxiety": false,
+        "residents_with_lgbtq": false,
+        "residents_with_physical_disabled": false,
+        "residents_with_children": false,
+        "residents_with_elderly": false,
+        "residents_ethnics": ["Māori", "Pacific peoples", "Middle Eastern", "Latin American", "African", "Asian", "European"]
+      }
     }
   }]
 }

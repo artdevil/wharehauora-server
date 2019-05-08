@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
   def index
     authorize @home
     @rooms = @home.rooms.order(:name).paginate(page: params[:page])
-    @unassigned_sensors = @home.sensors.where(room_id: nil)
+    @unassigned_sensors = @home.sensors.unassigned
     respond_with(@rooms)
   end
 
