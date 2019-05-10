@@ -38,6 +38,7 @@ class Room < ApplicationRecord
 
   scope(:with_no_readings, -> { includes(:readings).where(readings: { id: nil }) })
   scope(:with_no_sensors, -> { includes(:sensors).where(sensors: { id: nil }) })
+  scope(:with_sensors, -> { includes(:sensors).where.not(sensors: { id: nil }) })
 
   scope(:has_readings, -> { includes(:sensors).where.not(sensors: { id: nil }) })
 
@@ -105,6 +106,24 @@ class Room < ApplicationRecord
     end
   end
 
+  def array_analysis
+    data = []
+
+    data.push('Very cold room') if way_too_cold?
+    data.push('Temperature below recommended levels') if too_cold?
+    data.push('Comfortable') if comfortable?
+    data = data + ['Comfortable humidity', 'Acceptable dewpoint', 'Temp is well above dewpoint'] if dry?
+    
+    if below_dewpoint?
+      data = data + [
+        'Risk for cold, damp, and mould', 
+        "When the temperature in this room falls below #{ApplicationController.helpers.display_dewpoint(self)} moisture begins to form on surfaces, leading to mould growth."
+      ]
+    end
+
+    return data
+  end
+
   class << self
     def form_options(options = [])
       data = {
@@ -121,8 +140,8 @@ class Room < ApplicationRecord
     def filters_by(filters)
       data = where(false)
 
-      if filters[:assigned].present?
-        data = filters[:assigned].to_bool ? data.assigned : data.unassigned
+      if filters[:with_sensors].present?
+        data = filters[:with_sensors].to_bool ? data.with_sensors : data.with_no_sensors
       end
 
       return data

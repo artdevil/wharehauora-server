@@ -48,11 +48,15 @@ Rails.application.routes.draw do
           get :form_options
         end
 
-        resources :rooms, except: [:new, :edit]
+        resources :rooms, except: [:new, :edit] do
+          get '/key/:key/readings', to: 'readings#index'
+          
+        end
+        
         resources :sensors
       end
 
-      get 'rooms/form_options', to: 'api/v1/rooms#form_options'
+      get 'rooms/form_options', to: 'rooms#form_options'
     end
     
   end

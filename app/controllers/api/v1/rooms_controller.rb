@@ -12,7 +12,6 @@ class Api::V1::RoomsController < Api::BaseController
 
   def show
     skip_authorization if @room.public?
-    @readings = Reading.where(room: @room).order(created_at: :desc).limit(10)
     respond_with(@room)
   end
 
@@ -59,7 +58,7 @@ class Api::V1::RoomsController < Api::BaseController
   end
 
   def filter_params
-    params.permit(:with_sensor)
+    params.permit(:with_sensors)
   end
 
   def room_options_params

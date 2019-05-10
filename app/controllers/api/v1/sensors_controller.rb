@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SensorsController < Api::BaseController
-  before_action :set_sensor, only: %i[show edit update]
+  before_action :set_sensor, only: %i[show edit update, unassign]
   before_action :set_home, only: %i[index]
   respond_to :json
 
@@ -32,11 +32,9 @@ class Api::V1::SensorsController < Api::BaseController
   end
 
   def unassign
-    @sensor = policy_scope(Sensor).find(params[:sensor_id])
+    @sensor = policy_scope(Sensor).find(params[:id])
     authorize @sensor
-    room = @sensor.room
-    room.unassign_sensor(@sensor)
-    respond_with room
+    @room.unassign_sensor(@sensor)
   end
 
   private

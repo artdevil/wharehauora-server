@@ -1,22 +1,28 @@
 {
   "published": true,
   "sort_order": 1,
-  "name": "Index Rooms",
-  "end_point": "/api/:home_id/rooms",
+  "name": "Reading Sensor Room",
+  "end_point": "/homes/:home_id/rooms/:room_id/key/:key/readings",
   "http_method": "GET",
   "params": [{
-    "key": "with_sensors",
-    "type": "Boolean",
-    "Description": "For fetching data based on there are sensor in room or not"
+    "key": "home_id",
+    "required": true,
+    "type": "Integer"
+  }, {
+    "key": "room_id",
+    "required": true,
+    "type": "Integer"
+  }, {
+    "key": "key",
+    "required": true,
+    "type": "String",
+    "description": "type of key we want to get, option : temperature, humidity, mould, and dewpoint"
   }],
   "header": {
     "Authorization": "Bearer <token>",
     "Content-Type": "application/json"
   },
   "examples": [{
-    "request": {
-      "with_sensors": true
-    },
     "response": {
       "success": true,
       "data": [

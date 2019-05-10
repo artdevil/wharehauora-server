@@ -1,0 +1,57 @@
+{
+  "published": true,
+  "sort_order": 4,
+  "name": "Assign Sensor",
+  "end_point": "/api/homes/:home_id/sensors/:id",
+  "http_method": "PUT | PATCH",
+  "params": [{
+    "key": "room_id",
+    "type": "Integer",
+    "description": "Fill it if want to assigned sensor in room. Only room in same home allowed"
+  }, {
+    "key": "room[name]",
+    "type": "String",
+    "description": "Fill it if want to add new room and assign sensor"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "room[name]": "hello room"
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "id": 34624,
+        "name": "efgh",
+        "mac_address": "efgh",
+        "node_id": "138",
+        "first_detected": "15 days ago",
+        "room": {
+          "id": 1852,
+          "name": "hello room"
+        }
+      }
+    }
+  },{
+    "request": {
+      "room_id": 147
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "id": 34624,
+        "name": "efgh",
+        "mac_address": "efgh",
+        "node_id": "138",
+        "first_detected": "15 days ago",
+        "room": {
+          "id": 147,
+          "name": "hello room"
+        }
+      }
+    }
+  }]
+}
