@@ -12,7 +12,7 @@ json.data do
     json.room_type nil
   end
 
-  json.temprature do
+  json.temperature do
     json.read display_temperature(@room)
     json.last_update reading_age_in_words(@room, 'temperature')
   end
