@@ -25,142 +25,30 @@
   "examples": [{
     "response": {
       "success": true,
+      "key": "dewpoint",
+      "home": {
+          "id": 1,
+          "name": "Rabid Technologies"
+      },
+      "room": {
+          "id": 1824,
+          "name": "Amy's Desk"
+      },
       "data": [
         {
-          "id": 1824,
-          "name": "Amy's Desk",
-          "room_type": {
-            "id": 2,
-            "name": "Child's bedroom"
-          },
-          "temprature": {
-            "read": "4.4°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
+          "2017-07-11 04:48:00 UTC": 18.84
         },
         {
-          "id": 1829,
-          "name": "Brenda's Desk",
-          "room_type": {
-            "id": 6,
-            "name": "Bedroom"
-          },
-          "temprature": {
-            "read": "2.6°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
+            "2017-07-11 04:50:00 UTC": 18.84
         },
         {
-          "id": 1534,
-          "name": "Jake's Desk",
-          "room_type": {
-            "id": 2,
-            "name": "Child's bedroom"
-          },
-          "temprature": {
-            "read": "24.7°C",
-            "last_update": "over 1 year ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
+            "2017-07-11 04:51:00 UTC": 18.84
         },
         {
-          "id": 1826,
-          "name": "Josh's Desk",
-          "room_type": {
-            "id": 2,
-            "name": "Child's bedroom"
-          },
-          "temprature": {
-            "read": "22.3°C",
-            "last_update": "8 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
+            "2017-07-11 04:52:00 UTC": 18.84
         },
         {
-          "id": 1825,
-          "name": "Marian's Desk",
-          "room_type": {
-            "id": 1,
-            "name": "Living space"
-          },
-          "temprature": {
-            "read": "4.9°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
-        },
-        {
-          "id": 1827,
-          "name": "Repeater Node",
-          "room_type": {
-            "id": 6,
-            "name": "Bedroom"
-          },
-          "temprature": {
-            "read": "2.6°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
-        },
-        {
-          "id": 1585,
-          "name": "Sandra's desk",
-          "room_type": {
-            "id": 1,
-            "name": "Living space"
-          },
-          "temprature": {
-            "read": "5.0°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
-        },
-        {
-          "id": 1512,
-          "name": "The Library",
-          "room_type": {
-            "id": 2,
-            "name": "Child's bedroom"
-          },
-          "temprature": {
-            "read": "5.5°C",
-            "last_update": "7 months ago"
-          },
-          "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
-          },
-          "analysis": "Offline"
+            "2017-07-11 04:53:00 UTC": 18.41
         }
       ]
     }
