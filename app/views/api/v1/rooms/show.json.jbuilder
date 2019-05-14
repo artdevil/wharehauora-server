@@ -15,21 +15,25 @@ json.data do
   json.temperature do
     json.read display_temperature(@room)
     json.last_update reading_age_in_words(@room, 'temperature')
+    json.status temperature_reading(@room)
   end
 
   json.humidity do
     json.read display_humidity(@room)
-    json.last_update reading_age_in_words(@room, 'temperature')
+    json.last_update reading_age_in_words(@room, 'humidity')
+    json.status humidity_reading(@room)
   end
 
   json.dewpoint do
     json.read display_dewpoint(@room)
     json.last_update reading_age_in_words(@room, 'dewpoint')
+    json.status dewpoint_reading(@room)
   end
 
   json.rating do
     json.grade @room.rating
     json.read rating_text(@room)
+    json.status room_grade_class(@room)
   end
 
   json.array_analysis @room.array_analysis

@@ -12,14 +12,16 @@ json.data @rooms do |room|
     json.room_type nil
   end
 
-  json.temprature do
+  json.temperature do
     json.read display_temperature(room)
     json.last_update reading_age_in_words(room, 'temperature')
+    json.status temperature_reading(room)
   end
 
   json.humidity do
     json.read display_humidity(room)
-    json.last_update reading_age_in_words(room, 'temperature')
+    json.last_update reading_age_in_words(room, 'humidity')
+    json.status humidity_reading(room)
   end
 
   json.analysis room.analysis
