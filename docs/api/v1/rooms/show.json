@@ -18,7 +18,7 @@
           "id": 2,
           "name": "Child's bedroom"
         },
-        "temprature": {
+        "temperature": {
           "value": "4.4°C",
           "last_update": "7 months ago",
           "status": "low"
