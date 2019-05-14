@@ -23,7 +23,7 @@ class Api::V1::ReadingsController < Api::BaseController
     data_by_room = []
     readings.each do |reading|
       created_at, room_id, room_name, reading_value = reading
-      data_by_room << [created_at, reading_value.round(2)]
+      data_by_room << { created_at => reading_value.round(2) }
     end
     
     return data_by_room

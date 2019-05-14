@@ -95,7 +95,7 @@ class Room < ApplicationRecord
       elsif too_hot?
         'Too hot.'
       elsif too_cold?
-        "Too cold for a #{room.room_type.name.downcase}"
+        "Too cold for a #{room_type.name.downcase}"
       elsif good?
         'Room is good.'
       end

@@ -50,7 +50,6 @@ Rails.application.routes.draw do
 
         resources :rooms, except: [:new, :edit] do
           get '/key/:key/readings', to: 'readings#index'
-          
         end
         
         resources :sensors
