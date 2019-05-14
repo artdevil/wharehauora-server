@@ -28,12 +28,14 @@
             "name": "Child's bedroom"
           },
           "temprature": {
-            "read": "4.4°C",
-            "last_update": "7 months ago"
+            "value": "4.4°C",
+            "last_update": "7 months ago",
+            "status": "low"
           },
           "humidity": {
-            "read": "66.0%",
-            "last_update": "7 months ago"
+            "value": "66.0%",
+            "last_update": "7 months ago",
+            "status": "low"
           },
           "analysis": "Offline"
         },
@@ -45,11 +47,11 @@
             "name": "Bedroom"
           },
           "temprature": {
-            "read": "2.6°C",
+            "value": "2.6°C",
             "last_update": "7 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -62,11 +64,11 @@
             "name": "Child's bedroom"
           },
           "temprature": {
-            "read": "24.7°C",
+            "value": "24.7°C",
             "last_update": "over 1 year ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -79,11 +81,11 @@
             "name": "Child's bedroom"
           },
           "temprature": {
-            "read": "22.3°C",
+            "value": "22.3°C",
             "last_update": "8 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -96,11 +98,11 @@
             "name": "Living space"
           },
           "temprature": {
-            "read": "4.9°C",
+            "value": "4.9°C",
             "last_update": "7 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -113,11 +115,11 @@
             "name": "Bedroom"
           },
           "temprature": {
-            "read": "2.6°C",
+            "value": "2.6°C",
             "last_update": "7 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -130,11 +132,11 @@
             "name": "Living space"
           },
           "temprature": {
-            "read": "5.0°C",
+            "value": "5.0°C",
             "last_update": "7 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"
@@ -147,11 +149,11 @@
             "name": "Child's bedroom"
           },
           "temprature": {
-            "read": "5.5°C",
+            "value": "5.5°C",
             "last_update": "7 months ago"
           },
           "humidity": {
-            "read": "66.0%",
+            "value": "66.0%",
             "last_update": "7 months ago"
           },
           "analysis": "Offline"

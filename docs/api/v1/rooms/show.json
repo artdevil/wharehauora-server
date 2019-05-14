@@ -19,20 +19,24 @@
           "name": "Child's bedroom"
         },
         "temprature": {
-          "read": "4.4°C",
-          "last_update": "7 months ago"
+          "value": "4.4°C",
+          "last_update": "7 months ago",
+          "status": "low"
         },
         "humidity": {
-          "read": "64.9%",
-          "last_update": "7 months ago"
+          "value": "64.9%",
+          "last_update": "7 months ago",
+          "status": "low"
         },
         "dewpoint": {
-          "read": "-1.8°C",
-          "last_update": "7 months ago"
+          "value": "-1.8°C",
+          "last_update": "7 months ago",
+          "status": "low"
         },
         "rating": {
           "grade": "?",
-          "read": "Unknown"
+          "value": "Unknown",
+          "status": "low"
         },
         "array_analysis": [
           "Comfortable",
