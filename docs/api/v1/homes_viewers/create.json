@@ -1,0 +1,29 @@
+{
+  "published": true,
+  "sort_order": 2,
+  "name": "Create Home Viewers",
+  "end_point": "/api/homes/:home_id/home_viewers",
+  "http_method": "POST",
+  "params": [{
+    "key": "email",
+    "required": true,
+    "type": "Email",
+    "Description": "Input existing user email or invite user by email"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "email": "yoman@yoman.com"
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "id": 26,
+        "email": "yoman@yoman.com"
+      }
+    }
+  }]
+}

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
         end
         
         resources :sensors
+        resources :home_viewers, except: [:new, :edit, :update]
       end
 
       get 'rooms/form_options', to: 'rooms#form_options'

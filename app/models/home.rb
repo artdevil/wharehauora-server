@@ -66,6 +66,8 @@ class Home < ApplicationRecord
 
   has_many :invitations
 
+  accepts_nested_attributes_for :home_viewers, reject_if: proc { |f| f['user_id'].blank? }, allow_destroy: true
+
   scope(:is_public?, -> { where(is_public: true) })
 
   validates :name, presence: true
