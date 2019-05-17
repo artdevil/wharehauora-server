@@ -1,20 +1,12 @@
 # frozen_string_literal: true
 
 class Api::V1::SensorsController < Api::BaseController
-  before_action :set_sensor, only: %i[show edit update, unassign]
+  before_action :set_sensor, only: %i[update unassign]
   before_action :set_home, only: %i[index]
   respond_to :json
 
   def index
     @sensors = @home.sensors.filters_by(filter_params).paginate(page: params[:page])
-  end
-
-  def show
-    respond_with(@sensor)
-  end
-
-  def edit
-    @rooms = @sensor.home.rooms.with_no_sensors.order(:name)
   end
 
   def update
@@ -32,9 +24,8 @@ class Api::V1::SensorsController < Api::BaseController
   end
 
   def unassign
-    @sensor = policy_scope(Sensor).find(params[:id])
-    authorize @sensor
-    @room.unassign_sensor(@sensor)
+    @room = @sensor.room
+    @room&.unassign_sensor(@sensor)
   end
 
   private
@@ -45,7 +36,7 @@ class Api::V1::SensorsController < Api::BaseController
   end
 
   def set_sensor
-    @sensor = policy_scope(Sensor).find(params[:id])
+    @sensor = policy_scope(Sensor).where(home_id: params[:home_id]).find(params[:id])
     authorize @sensor
     @home = @sensor.home
   end

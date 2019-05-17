@@ -52,7 +52,11 @@ Rails.application.routes.draw do
           get '/key/:key/readings', to: 'readings#index'
         end
         
-        resources :sensors
+        resources :sensors, except: [:new, :create, :edit, :destroy] do
+          member do
+            delete 'unassign'
+          end
+        end
         resources :home_viewers, except: [:new, :edit, :update]
       end
 

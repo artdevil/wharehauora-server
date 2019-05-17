@@ -1,6 +1,6 @@
 {
   "published": true,
-  "sort_order": 4,
+  "sort_order": 2,
   "name": "Assign Sensor",
   "end_point": "/api/homes/:home_id/sensors/:id",
   "http_method": "PUT | PATCH",
@@ -26,9 +26,6 @@
       "data": {
         "id": 34624,
         "name": "efgh",
-        "mac_address": "efgh",
-        "node_id": "138",
-        "first_detected": "15 days ago",
         "room": {
           "id": 1852,
           "name": "hello room"
@@ -44,9 +41,6 @@
       "data": {
         "id": 34624,
         "name": "efgh",
-        "mac_address": "efgh",
-        "node_id": "138",
-        "first_detected": "15 days ago",
         "room": {
           "id": 147,
           "name": "hello room"
