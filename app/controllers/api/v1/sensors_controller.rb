@@ -19,7 +19,7 @@ class Api::V1::SensorsController < Api::BaseController
     if @sensor.update_attributes(room: room)
       respond_with(@sensor)
     else
-      respond_form_with_error(@sensor.errors, room_params.merge(room_id: sensor_params[:room_id]))
+      respond_form_with_error(@sensor.errors, params)
     end
   end
 
