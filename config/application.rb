@@ -26,6 +26,11 @@ end
 if ENV['WEBHOOK_SLACK_URL'].present?
   # notifier to slack channel when there an error in application
   Rails.application.config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: '[PREFIX]',
+      sender_address: ENV['WEBHOOK_EMAIL_SENDER'],
+      exception_recipients: ENV['WEBHOOK_EMAIL_RECIPIENT'].split(',')
+    },
     slack: {
       webhook_url: ENV['WEBHOOK_SLACK_URL'],
       additional_parameters: {
