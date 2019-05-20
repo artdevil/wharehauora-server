@@ -38,9 +38,10 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    devise_for :users, controllers: {
-      registrations: 'api/users/registrations',
-    }, skip: [:sessions, :password]
+    scope module: :users do
+      post 'sign_up', to: 'registrations#create', as: :sign_up
+      put 'change_password', to: 'registrations#update', as: :change_password
+    end
 
     scope module: :v1, constraints: ApiConstraint.new(version: 1, default: :json) do
       resources :homes, except: [:new, :edit] do
