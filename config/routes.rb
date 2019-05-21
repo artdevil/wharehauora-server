@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     scope module: :users do
       post 'sign_up', to: 'registrations#create', as: :sign_up
       put 'change_password', to: 'registrations#update', as: :change_password
+      post 'reset_password', to: 'passwords#create', as: :reset_password
     end
 
     scope module: :v1, constraints: ApiConstraint.new(version: 1, default: :json) do
