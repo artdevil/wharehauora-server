@@ -1,2 +1,2 @@
 json.success true
-json.message 'successful reset password. Check your email'
+json.message 'Successful reset password. Check your email'

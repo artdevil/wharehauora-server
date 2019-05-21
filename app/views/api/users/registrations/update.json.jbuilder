@@ -1,2 +1,2 @@
 json.success true
-json.message 'successful update password'
+json.message 'Successful update password'
