@@ -171,23 +171,65 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   end
 
   describe '#update' do
-    subject { JSON.parse(response.body)['data'] }
-    let(:user) { owner }
+    describe 'with valid data' do
+      subject { JSON.parse(response.body)['data'] }
+      let(:user) { owner }
 
-    let(:body) do
-      {
-        'id': room.to_param, 
-        'home_id': home.id,
-        'name': 'new room name'
-      }
+      let(:body) do
+        {
+          'id': room.to_param, 
+          'home_id': home.id,
+          'name': 'new room name'
+        }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(Room.find(room.id).name).to eq 'new room name' }
+      it { expect(response).to have_http_status(:success) }
     end
 
-    before do
-      request.headers.merge! headers
-      patch :update, { params: body }
+    describe 'with invalid data' do
+      subject { JSON.parse(response.body) }
+      let(:user) { owner }
+
+      let(:body) do
+        {
+          'id': room.to_param, 
+          'home_id': home.id,
+          'name': ''
+        }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(subject['success']).to eq false }
     end
 
-    it { expect(Room.find(room.id).name).to eq 'new room name' }
-    it { expect(response).to have_http_status(:success) }
+    describe 'with invalid room id' do
+      subject { JSON.parse(response.body) }
+      let(:user) { owner }
+
+      let(:body) do
+        {
+          'id': 1000, 
+          'home_id': home.id,
+          'name': ''
+        }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(subject['success']).to eq false }
+    end
   end
 end
