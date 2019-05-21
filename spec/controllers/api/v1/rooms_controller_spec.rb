@@ -59,19 +59,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       describe 'room too hot' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 101.1, room: room }
 
-        it { expect(temperature_response).to include('read' => '101.1°C') }
+        it { expect(temperature_response).to include('value' => '101.1°C') }
       end
 
       describe 'room too cold' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 3.1, room: room }
 
-        it { expect(temperature_response).to include('read' => '3.1°C') }
+        it { expect(temperature_response).to include('value' => '3.1°C') }
       end
 
       describe 'room just right' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 20.5, room: room }
 
-        it { expect(temperature_response).to include('read' => '20.5°C') }
+        it { expect(temperature_response).to include('value' => '20.5°C') }
       end
     end
 
