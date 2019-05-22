@@ -100,18 +100,16 @@ class Home < ApplicationRecord
     (residents_ethnics - Home::RESIDENTS_ETHNICS_LIST).first
   end
 
-  class << self
-    def form_options(options = [])
-      data = {
-        home_type: HomeType.select(:id, :name)
-      }
+  def self.form_options(options = [])
+    data = {
+      home_type: HomeType.select(:id, :name)
+    }
 
-      if options.present?
-        data.delete(:home_type) unless options[:home_type].present? and options[:home_type].to_bool
-      end
-      
-      return data
+    if options.present?
+      data.delete(:home_type) unless options[:home_type].present? and options[:home_type].to_bool
     end
+    
+    return data
   end
 
   private

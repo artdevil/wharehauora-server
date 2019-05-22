@@ -77,8 +77,9 @@ class Sensor < ApplicationRecord
   end
 
   def checking_home_has_rooms
-    unless home.rooms.pluck(:id).include?(room_id)
-      self.errors.add(:room_id, 'cannot set room from different home')
-    end
+    return if home.rooms.pluck(:id)&.include?(room_id)
+    
+    errors.add(:room_id, 'cannot set room from different home')
+    throw(:abort)
   end
 end

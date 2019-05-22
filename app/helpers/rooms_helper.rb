@@ -67,7 +67,6 @@ module RoomsHelper
 
   def humidity_reading(room)
     return 'expired' unless room.enough_info_to_perform_rating?
-
     
     if room.near_dewpoint?
       'high'

@@ -89,6 +89,8 @@ class Room < ApplicationRecord
   end
 
   def analysis
+    return 'Edit room type to get analysis' if room_type.blank?
+    
     if enough_info_to_perform_rating?
       if comfortable?
         'Comfortable temperature.'
@@ -99,8 +101,6 @@ class Room < ApplicationRecord
       elsif good?
         'Room is good.'
       end
-    elsif !room_type.present?
-      'Edit room type to get analysis'
     else
       'Offline'
     end
@@ -112,29 +112,26 @@ class Room < ApplicationRecord
     data.push('Very cold room') if way_too_cold?
     data.push('Temperature below recommended levels') if too_cold?
     data.push('Comfortable') if comfortable?
-    data = data + ['Comfortable humidity', 'Acceptable dewpoint', 'Temp is well above dewpoint'] if dry?
-    
+    data += ['Comfortable humidity', 'Acceptable dewpoint', 'Temp is well above dewpoint'] if dry?
     if below_dewpoint?
-      data = data + [
-        'Risk for cold, damp, and mould', 
+      data += [
+        'Risk for cold, damp, and mould',
         "When the temperature in this room falls below #{ApplicationController.helpers.display_dewpoint(self)} moisture begins to form on surfaces, leading to mould growth."
       ]
     end
 
-    return data
+    data
   end
 
   class << self
     def form_options(options = [])
-      data = {
-        room_type: RoomType.select(:id, :name)
-      }
+      data = { room_type: RoomType.select(:id, :name) }
 
       if options.present?
-        data.delete(:room_type) unless options[:room_type].present? and options[:room_type].to_bool
+        data.delete(:room_type) unless options[:room_type].present? && options[:room_type].to_bool
       end
-      
-      return data
+
+      data
     end
 
     def filters_by(filters)
@@ -151,8 +148,9 @@ class Room < ApplicationRecord
   private
 
   def checking_existing_sensors
-    if sensors.present?
-      errors.add(:base, 'Please unasigned sensor before deleting it')
-    end
+    return if sensors.blank?
+    
+    errors.add(:base, 'Please unasigned sensor before deleting it')
+    throw(:abort)
   end
 end

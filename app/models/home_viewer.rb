@@ -34,11 +34,10 @@ class HomeViewer < ApplicationRecord
 
     if user_assigned.errors.present?
       errors.add(:email, user_assigned.errors.full_messages)
-      return false
+      false
     else
       self.user = user_assigned
       self.home = home
-      
       save
     end
   end
