@@ -10,7 +10,7 @@ class Api::V1::SensorsController < Api::BaseController
   end
 
   def update
-    room =  if sensor_params_contains_room?
+    room = if sensor_params_contains_room?
               Room.create(room_params.merge(home_id: @home.id))
             else
               policy_scope(Room).find_by(id: sensor_params[:room_id], home_id: @home.id)
