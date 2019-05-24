@@ -91,16 +91,18 @@ class Room < ApplicationRecord
   def analysis
     if room_type.blank?
       'Edit room type to get analysis'
-    elsif !enough_info_to_perform_rating?
+    elsif enough_info_to_perform_rating?
+      if comfortable?
+        'Comfortable temperature.'
+      elsif too_hot?
+        'Too hot.'
+      elsif too_cold?
+        "Too cold for a #{room_type.name.downcase}"
+      elsif good?
+        'Room is good.'
+      end
+    else
       'offline'
-    elsif comfortable?
-      'Comfortable temperature.'
-    elsif too_hot?
-      'Too hot.'
-    elsif too_cold?
-      "Too cold for a #{room_type.name.downcase}"
-    elsif good?
-      'Room is good.'
     end
   end
 
