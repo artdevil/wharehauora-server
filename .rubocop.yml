@@ -54,10 +54,6 @@ Style/FrozenStringLiteralComment:
 Rails:
   Enabled: true
 
-# Align the elements of a hash literal if they span more than one line.
-Style/AlignHash:
-  Enabled: false
-
 ## Turn these on when we go to rails 5
 Rails/HttpPositionalArguments:
   Enabled: false
