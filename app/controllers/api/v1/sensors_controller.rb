@@ -13,7 +13,7 @@ class Api::V1::SensorsController < Api::BaseController
     room = if sensor_params_contains_room?
              Room.create(room_params.merge(home_id: @home.id))
            else
-             policy_scope(Room).find_by_id_and_home_id(sensor_params[:room_id], @home.id)
+             policy_scope(Room).find_by(id: sensor_params[:room_id], home_id: @home.id)
            end
 
     if @sensor.update_attributes(room: room)
@@ -50,7 +50,7 @@ class Api::V1::SensorsController < Api::BaseController
   end
 
   def sensor_params_contains_room?
-    params[:room].present? and params[:room][:name].present?
+    params[:room].present? && params[:room][:name].present?
   end
 
   def room_params

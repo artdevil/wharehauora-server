@@ -2,7 +2,7 @@ json.success true
 json.data do
   json.id @room.id
   json.name @room.name
-  
+
   if @room.room_type.present?
     json.room_type do
       json.id @room.room_type.id
@@ -42,7 +42,7 @@ json.data do
     json.id sensor.id
     json.name sensor.name
     json.battery_level 'Not supported'
-    
+
     if sensor.home.gateway.present?
       json.software sensor.home.gateway.version
     else

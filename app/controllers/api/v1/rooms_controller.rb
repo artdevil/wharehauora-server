@@ -6,6 +6,8 @@ class Api::V1::RoomsController < Api::BaseController
 
   respond_to :json
 
+  def show; end
+
   def index
     @rooms = @home.rooms.includes(:room_type).filters_by(filter_params).order(:name).paginate(page: params[:page])
   end

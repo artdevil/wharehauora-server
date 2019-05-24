@@ -4,6 +4,8 @@ class Api::V1::HomesController < Api::BaseController
   before_action :set_home, only: %i[show destroy update]
   respond_to :json
 
+  def show; end
+
   def index
     authorize :home
     @homes = policy_scope(Home).includes(:home_type).paginate(page: params[:page])

@@ -9,9 +9,9 @@ class Api::Users::RegistrationsController < Api::BaseController
 
     if user.save
       user.skip_confirmation!
-      
+
       access_token = Doorkeeper::AccessToken.create!(
-        application_id: nil, 
+        application_id: nil,
         resource_owner_id: user.id,
         use_refresh_token: true,
         expires_in: Doorkeeper.configuration.access_token_expires_in.to_i

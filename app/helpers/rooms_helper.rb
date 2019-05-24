@@ -31,7 +31,7 @@ module RoomsHelper
 
   def temperature_reading_class(room)
     return 'expired' unless room.enough_info_to_perform_rating?
- 
+
     if room.too_cold?
       'temp-low-2a'
     elsif room.too_hot?
@@ -43,7 +43,7 @@ module RoomsHelper
 
   def temperature_reading(room)
     return 'expired' unless room.enough_info_to_perform_rating?
- 
+
     if room.too_cold?
       'low'
     elsif room.too_hot?
@@ -67,7 +67,7 @@ module RoomsHelper
 
   def humidity_reading(room)
     return 'expired' unless room.enough_info_to_perform_rating?
-    
+
     if room.near_dewpoint?
       'high'
     elsif room.below_dewpoint?

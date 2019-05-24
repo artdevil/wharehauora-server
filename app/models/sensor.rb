@@ -41,7 +41,7 @@ class Sensor < ApplicationRecord
   scope(:assigned, -> { where.not(room_id: nil) })
 
   before_create :create_room
-  before_update :checking_home_has_rooms, if: proc { room_id_changed? && room_id != nil }
+  before_update :checking_home_has_rooms, if: proc { room_id_changed? && !room_id.nil? }
 
   def last_message
     messages.order(created_at: :desc).first&.created_at

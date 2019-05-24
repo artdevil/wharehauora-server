@@ -2,7 +2,7 @@ json.success true
 json.data @rooms do |room|
   json.id room.id
   json.name room.name
-  
+
   if room.room_type.present?
     json.room_type do
       json.id room.room_type.id
