@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ActionController::Base
+  protect_from_forgery with: :exception, unless: -> { request.format.json? }
   include Pundit
   force_ssl if Rails.env.production?
   before_action :doorkeeper_authorize!

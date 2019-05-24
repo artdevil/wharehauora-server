@@ -90,24 +90,21 @@ class Room < ApplicationRecord
 
   def analysis
     return 'Edit room type to get analysis' if room_type.blank?
-    if enough_info_to_perform_rating?
-      if comfortable?
-        'Comfortable temperature.'
-      elsif too_hot?
-        'Too hot.'
-      elsif too_cold?
-        "Too cold for a #{room_type.name.downcase}"
-      elsif good?
-        'Room is good.'
-      end
-    else
-      'Offline'
+    return 'offline' if !enough_info_to_perform_rating?
+
+    if comfortable?
+      'Comfortable temperature.'
+    elsif too_hot?
+      'Too hot.'
+    elsif too_cold?
+      "Too cold for a #{room_type.name.downcase}"
+    elsif good?
+      'Room is good.'
     end
   end
 
   def array_analysis
     data = []
-
     data.push('Very cold room') if way_too_cold?
     data.push('Temperature below recommended levels') if too_cold?
     data.push('Comfortable') if comfortable?
@@ -119,7 +116,6 @@ class Room < ApplicationRecord
         'moisture begins to form on surfaces, leading to mould growth.'
       ]
     end
-
     data
   end
 
