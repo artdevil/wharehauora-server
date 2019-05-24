@@ -89,10 +89,11 @@ class Room < ApplicationRecord
   end
 
   def analysis
-    return 'Edit room type to get analysis' if room_type.blank?
-    return 'offline' if !enough_info_to_perform_rating?
-
-    if comfortable?
+    if room_type.blank?
+      'Edit room type to get analysis'
+    elsif !enough_info_to_perform_rating?
+      'offline'
+    elsif comfortable?
       'Comfortable temperature.'
     elsif too_hot?
       'Too hot.'
