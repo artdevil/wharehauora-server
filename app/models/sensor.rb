@@ -24,7 +24,6 @@
 #
 
 class Sensor < ApplicationRecord
-  
   validates :home, presence: true
   validate :same_home_as_room
   validates :mac_address, uniqueness: { scope: :home_id }
@@ -42,14 +41,14 @@ class Sensor < ApplicationRecord
   scope(:assigned, -> { where.not(room_id: nil) })
 
   before_create :create_room
-  before_update :checking_home_has_rooms, if: Proc.new{ room_id_changed? and room_id != nil }
+  before_update :checking_home_has_rooms, if: proc { room_id_changed? && room_id != nil }
 
   def last_message
     messages.order(created_at: :desc).first&.created_at
   end
 
   def name
-    mac_address.present? ? mac_address : node_id
+    mac_address || node_id
   end
 
   def same_home_as_room
@@ -66,7 +65,7 @@ class Sensor < ApplicationRecord
         data = filters[:assigned].to_bool ? data.assigned : data.unassigned
       end
 
-      return data
+      data
     end
   end
 
@@ -78,7 +77,6 @@ class Sensor < ApplicationRecord
 
   def checking_home_has_rooms
     return if home.rooms.pluck(:id)&.include?(room_id)
-    
     errors.add(:room_id, 'cannot set room from different home')
     throw(:abort)
   end

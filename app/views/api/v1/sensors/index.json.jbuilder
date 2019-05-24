@@ -3,7 +3,6 @@ json.data @sensors do |sensor|
   json.id sensor.id
   json.name sensor.name
   json.first_detected "#{time_ago_in_words sensor.created_at} ago"
-  
   if sensor.room.present?
     json.room do
       json.id sensor.room.id

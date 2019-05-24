@@ -90,7 +90,6 @@ class Room < ApplicationRecord
 
   def analysis
     return 'Edit room type to get analysis' if room_type.blank?
-    
     if enough_info_to_perform_rating?
       if comfortable?
         'Comfortable temperature.'
@@ -141,7 +140,7 @@ class Room < ApplicationRecord
         data = filters[:with_sensors].to_bool ? data.with_sensors : data.with_no_sensors
       end
 
-      return data
+      data
     end
   end
 
@@ -149,7 +148,7 @@ class Room < ApplicationRecord
 
   def checking_existing_sensors
     return if sensors.blank?
-    
+
     errors.add(:base, 'Please unasigned sensor before deleting it')
     throw(:abort)
   end

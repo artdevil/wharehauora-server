@@ -2,7 +2,6 @@ json.success true
 json.data do
   json.id @sensor.id
   json.name @sensor.name
-  
   if @sensor.room.present?
     json.room do
       json.id @sensor.room.id

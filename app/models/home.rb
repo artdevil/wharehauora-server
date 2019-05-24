@@ -106,10 +106,10 @@ class Home < ApplicationRecord
     }
 
     if options.present?
-      data.delete(:home_type) unless options[:home_type].present? and options[:home_type].to_bool
+      data.delete(:home_type) unless options[:home_type].present? && options[:home_type].to_bool
     end
     
-    return data
+    data
   end
 
   private
