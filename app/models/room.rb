@@ -116,7 +116,7 @@ class Room < ApplicationRecord
       data += [
         'Risk for cold, damp, and mould',
         "When the temperature in this room falls below #{ApplicationController.helpers.display_dewpoint(self)} "\
-        "moisture begins to form on surfaces, leading to mould growth."
+        'moisture begins to form on surfaces, leading to mould growth.'
       ]
     end
 
