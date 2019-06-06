@@ -41,6 +41,18 @@ module RoomsHelper
     end
   end
 
+  def temperature_reading(room)
+    return 'expired' unless room.enough_info_to_perform_rating?
+
+    if room.too_cold?
+      'low'
+    elsif room.too_hot?
+      'high'
+    else
+      'mid'
+    end
+  end
+
   def humidity_reading_class(room)
     return 'expired' unless room.enough_info_to_perform_rating?
 
@@ -53,6 +65,18 @@ module RoomsHelper
     end
   end
 
+  def humidity_reading(room)
+    return 'expired' unless room.enough_info_to_perform_rating?
+
+    if room.near_dewpoint?
+      'high'
+    elsif room.below_dewpoint?
+      'mid'
+    else
+      'low'
+    end
+  end
+
   def dewpoint_reading_class(room)
     return 'expired' unless room.enough_info_to_perform_rating?
 
@@ -62,6 +86,18 @@ module RoomsHelper
       'dew-mid'
     else
       'hum-mid-a'
+    end
+  end
+
+  def dewpoint_reading(room)
+    return 'expired' unless room.enough_info_to_perform_rating?
+
+    if room.below_dewpoint?
+      'high'
+    elsif room.near_dewpoint?
+      'mid'
+    else
+      'low'
     end
   end
 

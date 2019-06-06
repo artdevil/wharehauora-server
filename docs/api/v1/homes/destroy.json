@@ -1,0 +1,19 @@
+{
+  "published": true,
+  "sort_order": 5,
+  "name": "Destroy Home",
+  "end_point": "/api/v1/homes/:id",
+  "http_method": "DELETE",
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": {
+        "id": 1
+      }
+    }
+  }]
+}

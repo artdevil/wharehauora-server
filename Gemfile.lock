@@ -55,9 +55,13 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     airbrussh (1.3.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    angularjs-rails (1.6.8)
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
+    apidoco (1.5.3)
+      angularjs-rails
+      rails (>= 4.0.0)
     arel (8.0.0)
     ast (2.4.0)
     bcrypt (3.1.12)
@@ -175,6 +179,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.8.0)
+      activesupport (>= 4.2.0)
+      multi_json (>= 1.2)
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -217,6 +224,7 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     mqtt (0.5.0)
+    multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustermann (1.0.3)
@@ -414,6 +422,7 @@ PLATFORMS
 DEPENDENCIES
   active_median
   annotate
+  apidoco
   bullet
   byebug
   capistrano
@@ -440,6 +449,7 @@ DEPENDENCIES
   font-awesome-rails
   haml-rails
   haml_lint (= 0.26.0)
+  jbuilder
   jquery-rails
   jsonapi-resources
   kaminari

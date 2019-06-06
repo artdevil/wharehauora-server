@@ -1,0 +1,43 @@
+{
+  "published": true,
+  "sort_order": 2,
+  "name": "Form Option Home",
+  "end_point": "/api/homes/form_options",
+  "http_method": "GET",
+  "params": [{
+    "key": "home_type",
+    "type": "Boolean"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "home_type": true
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "home_type": [
+          {
+            "id": 4,
+            "name": "Owner occupier"
+          },
+          {
+            "id": 1,
+            "name": "Social Housing"
+          },
+          {
+            "id": 3,
+            "name": "Private Rental"
+          },
+          {
+            "id": 6,
+            "name": "Workplace / Office"
+          }
+        ]
+      }
+    }
+  }]
+}

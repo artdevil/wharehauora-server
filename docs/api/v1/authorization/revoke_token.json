@@ -1,0 +1,22 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Revoke Token",
+  "end_point": "/oauth/revoke",
+  "http_method": "POST",
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "params": [{
+    "key": "token",
+    "required": true,
+    "type": "String",
+    "description": "token same as with authorization token"
+  }],
+  "examples": [{
+    "response": {
+      
+    }
+  }]
+}

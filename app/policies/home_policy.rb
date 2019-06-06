@@ -7,6 +7,10 @@ class HomePolicy < ApplicationPolicy
     true
   end
 
+  def form_options?
+    true
+  end
+
   def create?
     signed_in?
   end

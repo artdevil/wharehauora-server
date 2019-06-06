@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
   def index
     authorize @home
     @rooms = @home.rooms.order(:name).paginate(page: params[:page])
-    @unassigned_sensors = @home.sensors.where(room_id: nil)
+    @unassigned_sensors = @home.sensors.unassigned
     respond_with(@rooms)
   end
 
@@ -29,12 +29,6 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    if @room.sensors.empty?
-      ActiveRecord::Base.transaction do
-        Reading.where(room_id: @room.id).delete_all
-        @room.destroy
-      end
-    end
     respond_with @room, location: home_rooms_path(@room.home)
   end
 

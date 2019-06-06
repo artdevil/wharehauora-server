@@ -1,0 +1,164 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Index Rooms",
+  "end_point": "/api/:home_id/rooms",
+  "http_method": "GET",
+  "params": [{
+    "key": "with_sensors",
+    "type": "Boolean",
+    "Description": "For fetching data based on there are sensor in room or not"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "with_sensors": true
+    },
+    "response": {
+      "success": true,
+      "data": [
+        {
+          "id": 1824,
+          "name": "Amy's Desk",
+          "room_type": {
+            "id": 2,
+            "name": "Child's bedroom"
+          },
+          "temprature": {
+            "value": "4.4°C",
+            "last_update": "7 months ago",
+            "status": "low"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago",
+            "status": "low"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1829,
+          "name": "Brenda's Desk",
+          "room_type": {
+            "id": 6,
+            "name": "Bedroom"
+          },
+          "temprature": {
+            "value": "2.6°C",
+            "last_update": "7 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1534,
+          "name": "Jake's Desk",
+          "room_type": {
+            "id": 2,
+            "name": "Child's bedroom"
+          },
+          "temprature": {
+            "value": "24.7°C",
+            "last_update": "over 1 year ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1826,
+          "name": "Josh's Desk",
+          "room_type": {
+            "id": 2,
+            "name": "Child's bedroom"
+          },
+          "temprature": {
+            "value": "22.3°C",
+            "last_update": "8 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1825,
+          "name": "Marian's Desk",
+          "room_type": {
+            "id": 1,
+            "name": "Living space"
+          },
+          "temprature": {
+            "value": "4.9°C",
+            "last_update": "7 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1827,
+          "name": "Repeater Node",
+          "room_type": {
+            "id": 6,
+            "name": "Bedroom"
+          },
+          "temprature": {
+            "value": "2.6°C",
+            "last_update": "7 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1585,
+          "name": "Sandra's desk",
+          "room_type": {
+            "id": 1,
+            "name": "Living space"
+          },
+          "temprature": {
+            "value": "5.0°C",
+            "last_update": "7 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        },
+        {
+          "id": 1512,
+          "name": "The Library",
+          "room_type": {
+            "id": 2,
+            "name": "Child's bedroom"
+          },
+          "temprature": {
+            "value": "5.5°C",
+            "last_update": "7 months ago"
+          },
+          "humidity": {
+            "value": "66.0%",
+            "last_update": "7 months ago"
+          },
+          "analysis": "Offline"
+        }
+      ]
+    }
+  }]
+}

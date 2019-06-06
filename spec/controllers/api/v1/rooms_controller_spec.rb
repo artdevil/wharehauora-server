@@ -3,12 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
-  let(:headers) do
-    {
-      'Accept' => 'application/vnd.api+json',
-      'Content-Type' => 'application/vnd.api+json'
-    }
-  end
+  render_views
+
   let(:room_type) { FactoryBot.create :room_type, min_temperature: 10, max_temperature: 30 }
   let(:room)      { FactoryBot.create :public_room, room_type: room_type                   }
   let(:home)      { room.home                                                              }
@@ -29,11 +25,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
                       resource_owner_id: user.try(:id))
   end
 
+  let(:headers) do
+    {
+      'Accept' => 'application/json',
+      'Content-Type' => 'application/json',
+      'Authorization' => "Bearer #{token.token}"
+    }
+  end
+
   # do nothing normally. Contexts below can add readings
   let(:create_readings) {}
 
   describe '#show' do
-    let(:params) { { id: room.id, format: :json, access_token: token.token } }
+    let(:params) { { id: room.id, home_id: home.id } }
 
     shared_examples 'can see summaries' do
       it { expect(response).to have_http_status(:success) }
@@ -45,42 +49,39 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     shared_examples 'returns expected readings' do
       subject { JSON.parse(response.body) }
 
-      let(:readings_response)    { subject['data']['attributes']['readings'] }
-      let(:temperature_response) { readings_response['temperature']          }
-      let(:humidity_response)    { readings_response['humidity']             }
-      let(:dewpoint_response)    { readings_response['dewpoint']             }
-      let(:ratings_response)     { subject['data']['attributes']['ratings']  }
+      let(:temperature_response) { subject['data']['temperature']          }
+      let(:humidity_response)    { subject['data']['humidity']             }
+      let(:dewpoint_response)    { subject['data']['dewpoint']             }
+      let(:rating_response)     { subject['data']['rating']  }
 
-      it { expect(subject['data']['attributes']).to include('name' => room.name) }
+      it { expect(subject['data']).to include('name' => room.name) }
 
       describe 'room too hot' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 101.1, room: room }
 
-        it { expect(temperature_response).to include('value' => 101.1, 'unit' => '°C') }
-        it { expect(ratings_response).to include('good' => false, 'too_hot' => true, 'too_cold' => false) }
+        it { expect(temperature_response).to include('value' => '101.1°C') }
       end
 
       describe 'room too cold' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 3.1, room: room }
 
-        it { expect(temperature_response).to include('value' => 3.1, 'unit' => '°C') }
-        it { expect(ratings_response).to include('good' => false, 'too_hot' => false, 'too_cold' => true) }
+        it { expect(temperature_response).to include('value' => '3.1°C') }
       end
 
       describe 'room just right' do
         let(:create_readings) { FactoryBot.create :temperature_reading, value: 20.5, room: room }
 
-        it { expect(temperature_response).to include('value' => 20.5, 'unit' => '°C') }
-        it { expect(ratings_response).to include('good' => true, 'too_hot' => false, 'too_cold' => false) }
+        it { expect(temperature_response).to include('value' => '20.5°C') }
       end
     end
 
-    before do
-      create_readings
-      get :show, params: params
-    end
-
     describe 'When room is in a public home' do
+      before do
+        create_readings
+        request.headers.merge! headers
+        get :show, params: params
+      end
+
       let(:room) { FactoryBot.create :public_room, room_type: room_type }
 
       shared_examples 'check permissions' do
@@ -126,6 +127,12 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       let(:room)      { FactoryBot.create :room, room_type: room_type    }
       let!(:readings) { FactoryBot.create_list :reading, 100, room: room }
 
+      before do
+        create_readings
+        request.headers.merge! headers
+        get :show, params: params
+      end
+
       describe 'and user is not logged in ' do
         let(:user) { nil }
 
@@ -163,52 +170,66 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
   end
 
-  describe '#create' do
-    subject { JSON.parse(response.body)['data'] }
-    let(:user) { owner }
-
-    let(:body) do
-      {
-        "type": 'rooms',
-        "attributes": {
-          "name": 'new room name',
-          "home-id": home.id
-        }
-      }
-    end
-    before do
-      request.headers.merge! headers
-      post :create, params: { data: body, access_token: token.token }
-    end
-
-    let(:attributes) { subject['attributes'] }
-
-    it { expect(response).to have_http_status(:success) }
-    it { expect(attributes['name']).to eq 'new room name' }
-    it { expect(attributes['home-id']).to eq home.id }
-    it { expect(Room.last.owner.id).to eq owner.id }
-  end
-
   describe '#update' do
-    subject { JSON.parse(response.body)['data'] }
-    let(:user) { owner }
+    describe 'with valid data' do
+      subject { JSON.parse(response.body)['data'] }
+      let(:user) { owner }
 
-    let(:body) do
-      {
-        "type": 'rooms',
-        "id": room.id,
-        "attributes": {
-          "name": 'new room name'
+      let(:body) do
+        {
+          'id': room.to_param, 
+          'home_id': home.id,
+          'name': 'new room name'
         }
-      }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(Room.find(room.id).name).to eq 'new room name' }
+      it { expect(response).to have_http_status(:success) }
     end
 
-    before do
-      request.headers.merge! headers
-      patch :update, params: { id: room.to_param, data: body, access_token: token.token }
+    describe 'with invalid data' do
+      subject { JSON.parse(response.body) }
+      let(:user) { owner }
+
+      let(:body) do
+        {
+          'id': room.to_param, 
+          'home_id': home.id,
+          'name': ''
+        }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(subject['success']).to eq false }
     end
 
-    it { expect(Room.find(room.id).name).to eq 'new room name' }
-    it { expect(response).to have_http_status(:success) }
+    describe 'with invalid room id' do
+      subject { JSON.parse(response.body) }
+      let(:user) { owner }
+
+      let(:body) do
+        {
+          'id': 1000, 
+          'home_id': home.id,
+          'name': ''
+        }
+      end
+
+      before do
+        request.headers.merge! headers
+        patch :update, { params: body }
+      end
+
+      it { expect(subject['success']).to eq false }
+    end
   end
 end

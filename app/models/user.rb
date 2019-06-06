@@ -66,6 +66,7 @@ class User < ApplicationRecord
     return unless User.only_deleted.where(email: email).size.positive?
 
     errors.add(:email, 'already exists as a deleted account')
+    throw(:abort)
   end
 
   def homes

@@ -14,7 +14,7 @@
         %span.loader
       %span.value= display_temperature(room)
       %span.label Temperature
-      %span.time= reading_age_in_words(room, 'temperature')
+      %span.time= reading_age_in_words(room, 'temperature') 
     .reading{class: humidity_reading_class(room)}
       %span.vis
         %span.loader
@@ -22,20 +22,7 @@
       %span.label Humidity
       %span.time= reading_age_in_words(room, 'temperature')
   %footer{class: room_class(room)}
-    %p
-      - if room.enough_info_to_perform_rating?
-        - if room.comfortable?
-          Comfortable temperature.
-        - if room.too_hot?
-          Too hot.
-        - if room.too_cold?
-          Too cold for a #{room.room_type.name.downcase}
-        - if room.good?
-          Room is good.
-      - elsif ! room.room_type.present?
-        Edit room type to get analysis
-      - else
-        Offline
+    %p= room.analysis
     -#   = succeed "." do
     -#     %a.underline{href: "#"} Learn how to fix this
     = link_to room_path(room), class: 'btn' do

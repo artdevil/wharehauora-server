@@ -3,23 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::HomesController, type: :controller do
-  let(:headers) do
-    {
-      'Accept' => 'application/vnd.api+json',
-      'Content-Type' => 'application/vnd.api+json'
-    }
-  end
+  render_views
+
   let!(:my_home)      { FactoryBot.create(:home, owner: user) }
   let!(:public_home)  { FactoryBot.create(:public_home)       }
   let!(:private_home) { FactoryBot.create(:home)              }
 
-  let!(:user) { FactoryBot.create :user }
+  let(:user) { FactoryBot.create :user }
 
-  let!(:application) { FactoryBot.create(:oauth_application) }
-  let!(:token) do
+  let(:application) { FactoryBot.create(:oauth_application) }
+  let(:token) do
     FactoryBot.create(:oauth_access_token,
                       application: application,
                       resource_owner_id: my_home.owner.id)
+  end
+
+  let(:headers) do
+    {
+      'Accept' => 'application/json',
+      'Content-Type' => 'application/json',
+      'Authorization' => "Bearer #{token.token}"
+    }
   end
 
   context 'OAuth authenticated ' do
@@ -33,28 +37,33 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
       shared_examples 'response includes my home' do
         describe 'response includes my home' do
-          let(:matching_home) { subject['data'].select { |home| home['id'] == my_home.id.to_s }.first }
+          let(:matching_home) { subject['data'].select { |home| home['id'] == my_home.id }.first }
 
-          it { expect(matching_home).to include('id' => my_home.id.to_s) }
-          it { expect(matching_home['attributes']).to include('name' => my_home.name) }
+          it { expect(matching_home).to include('id' => my_home.id) }
+          it { expect(matching_home).to include('name' => my_home.name) }
         end
       end
       shared_examples 'response includes public homes' do
-        describe 'response includes public home' do
-          let(:matching_home) { subject['data'].select { |home| home['id'] == public_home.id.to_s }.first }
 
-          it { expect(matching_home).to include('id' => public_home.id.to_s) }
-          it { expect(matching_home['attributes']).to include('name' => public_home.name) }
+        describe 'response includes public home' do
+          
+          let(:matching_home) { subject['data'].select { |home| home['id'] == public_home.id }.first }
+
+          it { expect(matching_home).to include('id' => public_home.id) }
+          it { expect(matching_home).to include('name' => public_home.name) }
         end
       end
       shared_examples 'response does not includes private homes' do
         describe 'response does not include private homes' do
-          it { expect(subject['data'].any? { |home| home['id'] == private_home.id.to_s }).to eq(false) }
+          it { expect(subject['data'].any? { |home| home['id'] == private_home.id }).to eq(false) }
         end
       end
 
       describe 'home owner' do
-        before { get :index, format: :json, params: { access_token: token.token } }
+        before do
+          request.headers.merge! headers
+          get :index
+        end
 
         include_examples 'token belongs to home owner'
 
@@ -77,24 +86,18 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
     let(:body) do
       {
-        "type": 'homes',
-        "attributes": {
-          "name": 'home home home name',
-          "owner-id": my_home.owner.id,
-          "gateway-mac-address": 'ABCDEF1010'
-        }
+        "name": 'home home home name',
+        "gateway_mac_address": 'ABCDEF1010'
       }
     end
   
     before do
       request.headers.merge! headers
-      post :create, params: { data: body, access_token: token.token }
+      post :create, { params: body }
     end
 
-    let(:attributes) { subject['attributes'] }
-
     it { expect(response).to have_http_status(:success) }
-    it { expect(attributes['name']).to eq 'home home home name' }
+    it { expect(subject['name']).to eq 'home home home name' }
     it { expect(Home.last.owner.id).to eq my_home.owner.id }
   end
 
@@ -104,22 +107,19 @@ RSpec.describe Api::V1::HomesController, type: :controller do
     let(:home_type) { FactoryBot.create :home_type }
     let(:body) do
       {
-        "type": 'homes',
         "id": my_home.id,
-        "attributes": {
-          "name": 'new home name',
-          "home-type-id": home_type.id
-        }
+        "name": 'new home name',
+        "home_type_id": home_type.id
       }
     end
 
     before do
       request.headers.merge! headers
-      patch :update, params: { id: my_home.to_param, data: body, access_token: token.token }
+      patch :update, { params: body }
     end
 
     it { expect(Home.find(my_home.id).name).to eq 'new home name' }
     it { expect(response).to have_http_status(:success) }
-    it { expect(subject['attributes']['home-type-id']).to eq(home_type.id) }
+    it { expect(subject['home_type_id']).to eq(home_type.id) }
   end
 end

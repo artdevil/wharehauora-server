@@ -1,0 +1,23 @@
+{
+  "published": true,
+  "sort_order": 3,
+  "name": "Unassign Sensor",
+  "end_point": "/api/homes/:home_id/sensors/:id/unassign",
+  "http_method": "DELETE",
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": {
+        "id": 34624,
+        "name": "efgh",
+        "mac_address": "efgh",
+        "node_id": "138",
+        "room": null
+      }
+    }
+  }]
+}

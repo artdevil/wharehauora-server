@@ -23,9 +23,14 @@ module WharehauoraServer
   end
 end
 
-if ENV['WEBHOOK_SLACK_URL'].present?
+if ENV['WEBHOOK_SLACK_URL'].present? and ENV['WEBHOOK_EMAIL_SENDER'].present? and ENV['WEBHOOK_EMAIL_RECIPIENT'].present?
   # notifier to slack channel when there an error in application
   Rails.application.config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: '[PREFIX]',
+      sender_address: ENV['WEBHOOK_EMAIL_SENDER'],
+      exception_recipients: ENV['WEBHOOK_EMAIL_RECIPIENT'].try(:split, ',')
+    },
     slack: {
       webhook_url: ENV['WEBHOOK_SLACK_URL'],
       additional_parameters: {

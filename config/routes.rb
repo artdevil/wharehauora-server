@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  mount Apidoco::Engine, at: "/api_docs"
+
   devise_for :users
 
   use_doorkeeper do
@@ -36,25 +38,31 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    devise_for :users, controllers: {
-      registrations: 'api/users/registrations',
-    }, skip: [:sessions, :password]
+    scope module: :users do
+      post 'sign_up', to: 'registrations#create', as: :sign_up
+      put 'change_password', to: 'registrations#update', as: :change_password
+      post 'reset_password', to: 'passwords#create', as: :reset_password
+    end
 
-    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
-      jsonapi_resources :home_types, only: %i[index show]
-      jsonapi_resources :room_types, only: %i[index show]
-      jsonapi_resources :users
-      jsonapi_resources :sensors
-      jsonapi_resources :readings, only: [:show]
-      jsonapi_resources :homes do
-        jsonapi_resources :rooms, only: [:index]
-        jsonapi_resources :sensors, only: [:index]
-        jsonapi_resources :readings, only: [:index]
-        jsonapi_resources :users
+    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: :json) do
+      resources :homes, except: [:new, :edit] do
+        collection do
+          get :form_options
+        end
+
+        resources :rooms, except: [:new, :edit] do
+          get '/key/:key/readings', to: 'readings#index'
+        end
+        
+        resources :sensors, except: [:new, :create, :edit, :destroy] do
+          member do
+            delete 'unassign'
+          end
+        end
+        resources :home_viewers, except: [:new, :edit, :update]
       end
-      jsonapi_resources :rooms do
-        jsonapi_resources :readings, only: [:index]
-      end
+
+      get 'rooms/form_options', to: 'rooms#form_options'
     end
     
   end

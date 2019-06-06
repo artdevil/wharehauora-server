@@ -1,0 +1,56 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Reading Sensor Room",
+  "end_point": "/homes/:home_id/rooms/:room_id/key/:key/readings",
+  "http_method": "GET",
+  "params": [{
+    "key": "home_id",
+    "required": true,
+    "type": "Integer"
+  }, {
+    "key": "room_id",
+    "required": true,
+    "type": "Integer"
+  }, {
+    "key": "key",
+    "required": true,
+    "type": "String",
+    "description": "type of key we want to get, option : temperature, humidity, mould, and dewpoint"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "key": "dewpoint",
+      "home": {
+          "id": 1,
+          "name": "Rabid Technologies"
+      },
+      "room": {
+          "id": 1824,
+          "name": "Amy's Desk"
+      },
+      "data": [
+        {
+          "2017-07-11 04:48:00 UTC": 18.84
+        },
+        {
+            "2017-07-11 04:50:00 UTC": 18.84
+        },
+        {
+            "2017-07-11 04:51:00 UTC": 18.84
+        },
+        {
+            "2017-07-11 04:52:00 UTC": 18.84
+        },
+        {
+            "2017-07-11 04:53:00 UTC": 18.41
+        }
+      ]
+    }
+  }]
+}

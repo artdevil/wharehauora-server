@@ -18,6 +18,7 @@ gem 'rails-timeago', '~> 2.0'
 
 gem 'jsonapi-resources'
 gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-5.1'
+gem 'jbuilder'
 
 # # bundle exec rake doc:rails generates the API under doc/api.
 # gem 'sdoc', '~> 0.4.0', group: :doc
@@ -85,6 +86,9 @@ gem 'slack-notifier'
 
 # sidekiq for support background job
 gem 'sidekiq'
+
+# API documentation
+gem 'apidoco'
 
 group :production, :staging do
   # for heroku

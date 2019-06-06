@@ -1,0 +1,26 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Index Home Viewers",
+  "end_point": "/api/homes/:home_id/home_viewers",
+  "http_method": "GET",
+  "header": {
+    "Authentication": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": [
+        {
+          "id": 18,
+          "user_email": "cwang089@gmail.com"
+        },
+        {
+          "id": 26,
+          "user_email": "yoman@yoman.com"
+        }
+      ]
+    }
+  }]
+}

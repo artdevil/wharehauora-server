@@ -27,7 +27,7 @@ class SensorsController < ApplicationController
     @sensor = policy_scope(Sensor).find(params[:sensor_id])
     authorize @sensor
     room = @sensor.room
-    room.unassign_sensor(@sensor)
+    room&.unassign_sensor(@sensor)
     respond_with room
   end
 

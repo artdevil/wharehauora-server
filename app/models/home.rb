@@ -66,6 +66,8 @@ class Home < ApplicationRecord
 
   has_many :invitations
 
+  accepts_nested_attributes_for :home_viewers, reject_if: proc { |f| f['user_id'].blank? }, allow_destroy: true
+
   scope(:is_public?, -> { where(is_public: true) })
 
   validates :name, presence: true
@@ -96,6 +98,18 @@ class Home < ApplicationRecord
 
   def other_residents_ethnics
     (residents_ethnics - Home::RESIDENTS_ETHNICS_LIST).first
+  end
+
+  def self.form_options(options = [])
+    data = {
+      home_type: HomeType.select(:id, :name)
+    }
+
+    if options.present?
+      data.delete(:home_type) unless options[:home_type].present? && options[:home_type].to_bool
+    end
+
+    data
   end
 
   private

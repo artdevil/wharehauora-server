@@ -1,0 +1,98 @@
+{
+  "published": true,
+  "sort_order": 4,
+  "name": "Update Home",
+  "end_point": "/api/homes/:id",
+  "http_method": "PUT | PATCH",
+  "params": [{
+    "key": "name",
+    "required": true,
+    "type": "String"
+  }, {
+    "key": "address",
+    "type": "Text"
+  }, {
+    "key": "latitude",
+    "type": "Float"
+  }, {
+    "key": "longitude",
+    "type": "Float"
+  }, {
+    "key": "city",
+    "type": "String"
+  }, {
+    "key": "suburb",
+    "type": "String"
+  }, {
+    "key": "house_age",
+    "type": "Text"
+  }, {
+    "key": "residents_with_respiratory_illness",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_allergies",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_depression",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_anxiety",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_lgbtq",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_physical_disabled",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_children",
+    "type": "Boolean"
+  }, {
+    "key": "residents_with_elderly",
+    "type": "Boolean"
+  }, {
+    "key": "residents_ethnics",
+    "type": "Array",
+    "description": ["Māori", "Pacific peoples", "Middle Eastern", "Latin American", "African", "Asian", "European"]
+  }, {
+    "key": "gateway_mac_address",
+    "required": true,
+    "type": "String",
+    "validations": ["Should be upcase", "should have only letters A-F and numbers"]
+  }
+  ],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "name": "hello",
+      "gateway_mac_address": "21312312ABC",
+      "residents_ethnics": ["Māori", "Pacific peoples", "Middle Eastern", "Latin American", "African", "Asian", "European"]
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "id": 28,
+        "name": "hello",
+        "address": null,
+        "latitude": null,
+        "longitude": null,
+        "house_age": null,
+        "city": null,
+        "suburb": null,
+        "gateway_mac_address": "21312312ABC",
+        "residents_with_respiratory_illness": false,
+        "residents_with_allergies": false,
+        "residents_with_depression": false,
+        "residents_with_anxiety": false,
+        "residents_with_lgbtq": false,
+        "residents_with_physical_disabled": false,
+        "residents_with_children": false,
+        "residents_with_elderly": false,
+        "residents_ethnics": ["Māori", "Pacific peoples", "Middle Eastern", "Latin American", "African", "Asian", "European"]
+      }
+    }
+  }]
+}

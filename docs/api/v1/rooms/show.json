@@ -1,0 +1,60 @@
+{
+  "published": true,
+  "sort_order": 1,
+  "name": "Show Room",
+  "end_point": "/homes/:home_id/rooms/:room_id",
+  "http_method": "GET",
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "response": {
+      "success": true,
+      "data": {
+        "id": 1824,
+        "name": "Amy's Desk",
+        "room_type": {
+          "id": 2,
+          "name": "Child's bedroom"
+        },
+        "temperature": {
+          "value": "4.4°C",
+          "last_update": "7 months ago",
+          "status": "low"
+        },
+        "humidity": {
+          "value": "64.9%",
+          "last_update": "7 months ago",
+          "status": "low"
+        },
+        "dewpoint": {
+          "value": "-1.8°C",
+          "last_update": "7 months ago",
+          "status": "low"
+        },
+        "rating": {
+          "grade": "?",
+          "value": "Unknown",
+          "status": "low"
+        },
+        "array_analysis": [
+          "Comfortable",
+          "Comfortable humidity",
+          "Acceptable dewpoint",
+          "Temp is well above dewpoint"
+        ],
+        "sensors": [
+          {
+            "id": 34602,
+            "name": 148,
+            "battery_level": "Not supported",
+            "software": "unknown",
+            "last_reading": "",
+            "first_detected": "2017-08-15"
+          }
+        ]
+      }
+    }
+  }]
+}

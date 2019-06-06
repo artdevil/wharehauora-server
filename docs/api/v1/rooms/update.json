@@ -1,0 +1,31 @@
+{
+  "published": true,
+  "sort_order": 4,
+  "name": "Update Room",
+  "end_point": "/api/homes/:home_id/rooms/:id",
+  "http_method": "PUT | PATCH",
+  "params": [{
+    "key": "name",
+    "required": true,
+    "type": "String"
+  }, {
+    "key": "room_type_id",
+    "type": "Integer"
+  }],
+  "header": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "examples": [{
+    "request": {
+      "name": "hello room"
+    },
+    "response": {
+      "success": true,
+      "data": {
+        "id": 28,
+        "name": "hello room"
+      }
+    }
+  }]
+}
