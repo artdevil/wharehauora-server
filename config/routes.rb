@@ -53,7 +53,7 @@ Rails.application.routes.draw do
         resources :rooms, except: [:new, :edit] do
           get '/key/:key/readings', to: 'readings#index'
         end
-        
+
         resources :sensors, except: [:new, :create, :edit, :destroy] do
           member do
             delete 'unassign'
@@ -64,7 +64,7 @@ Rails.application.routes.draw do
 
       get 'rooms/form_options', to: 'rooms#form_options'
     end
-    
+
   end
 
   namespace :admin do

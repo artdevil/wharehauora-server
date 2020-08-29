@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.4.3'
 
 gem 'listen'
 
@@ -17,11 +17,14 @@ gem 'modernizr-rails'
 gem 'rails-timeago', '~> 2.0'
 
 gem 'jsonapi-resources'
-gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-5.1'
+gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-5.2'
 gem 'jbuilder'
 
 # # bundle exec rake doc:rails generates the API under doc/api.
 # gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Postgresql as the database for Active Record
 gem 'pg', '< 1.0.0'
