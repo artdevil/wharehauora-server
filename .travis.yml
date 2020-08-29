@@ -2,6 +2,8 @@ language: ruby
 bundler_args: "--without development"
 sudo: false
 cache: bundler
+services:
+  - postgresql
 before_script:
 - cp config/database.yml.example config/database.yml
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
