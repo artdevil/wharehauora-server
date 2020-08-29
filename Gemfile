@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.3'
+gem 'rails', '6.0.3.2'
 
 gem 'listen'
 
@@ -10,6 +10,7 @@ gem 'listen'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+gem 'webpacker'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -17,7 +18,7 @@ gem 'modernizr-rails'
 gem 'rails-timeago', '~> 2.0'
 
 gem 'jsonapi-resources'
-gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-5.2'
+gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-6'
 gem 'jbuilder'
 
 # # bundle exec rake doc:rails generates the API under doc/api.
