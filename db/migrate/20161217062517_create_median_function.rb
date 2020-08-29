@@ -2,10 +2,10 @@
 
 class CreateMedianFunction < ActiveRecord::Migration[4.2]
   def up
-    ActiveMedian.create_function
+    # ActiveMedian.create_function
   end
 
   def down
-    ActiveMedian.drop_function
+    # ActiveMedian.drop_function
   end
 end
