@@ -11,17 +11,20 @@ RSpec.describe 'OAuth Authorization', type: :request do
 
   describe 'auth ok' do
     let(:auth_creds) do
-      { username: user.email, password: user.password, client_id: oauth_application.uid, grant_type: 'password', format: :json }
+      { username: user.email, password: user.password, grant_type: 'password', format: :json }
     end
 
-    it { expect(response.status).to eq 200 }
+    it {
+      puts oauth_application.uid;
+      expect(response.status).to eq 200
+    }
     it { expect(authorize_response['access_token']).to be_present }
     it { expect(authorize_response['refresh_token']).to be_present }
   end
 
   describe 'auth not ok' do
     let(:auth_creds) do
-      { username: user.email, password: '123', client_id: oauth_application.uid, grant_type: 'password', format: :json }
+      { username: user.email, password: '123', grant_type: 'password', format: :json }
     end
 
     it { expect(response.status).to eq 401 }

@@ -7,15 +7,15 @@ gem 'rails', '6.0.3.2'
 gem 'listen'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 4.2.0'
 gem 'webpacker'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'modernizr-rails'
-gem 'rails-timeago', '~> 2.0'
+gem 'rails-timeago', '~> 2.19.0'
 
 gem 'jsonapi-resources'
 gem 'pundit-resources', git: 'https://github.com/wharehauora/pundit-resources', branch: 'rails-6'
@@ -28,17 +28,17 @@ gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Postgresql as the database for Active Record
-gem 'pg', '< 1.0.0'
+gem 'pg', '~> 1.2.3'
 
 # Using puma as server
 gem 'puma'
 
 # for logins
 gem 'devise'
-gem 'devise_invitable', '~> 1.7.0'
+gem 'devise_invitable', '~> 2.0.2'
 
 # soft delete of records
-gem 'paranoia', '~> 2.2'
+gem 'paranoia', '~> 2.4.2'
 
 # roles and permissions
 gem 'pundit'
@@ -74,15 +74,15 @@ gem 'active_median'
 gem 'momentjs-rails'
 
 # OAuth for API
-gem 'doorkeeper', '4.2.6'
+gem 'doorkeeper', '~> 5.4.0'
 
 # Rest/http library
 gem 'faraday'
 
 gem 'rack-cors', require: 'rack/cors'
 
-gem 'nokogiri', '>= 1.8.1'
-gem 'rails-html-sanitizer', '>= 1.0.4'
+gem 'nokogiri', '>= 1.10.10'
+gem 'rails-html-sanitizer', '>= 1.3.0'
 
 # notify if there any error come from server
 gem 'exception_notification'
@@ -106,8 +106,8 @@ group :development, :test do
   gem 'byebug'
 
   # code style
-  gem 'haml_lint', '0.26.0', require: false
-  gem 'rubocop', '0.49.1', require: false
+  gem 'haml_lint', '~> 0.35.0', require: false
+  gem 'rubocop', '~> 0.89.1', require: false
   gem 'scss_lint', require: false
 
   # pulls in config from environment variables
@@ -132,7 +132,7 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 3.3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -147,7 +147,7 @@ group :development do
 end
 
 group :test do
-  gem 'pundit-matchers', '~> 1.3.0'
+  gem 'pundit-matchers', '~> 1.6.0'
   gem 'rails-controller-testing'
   gem 'timecop'
   gem 'rspec-sidekiq'

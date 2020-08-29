@@ -25,7 +25,7 @@ RSpec.describe Mqtt, type: :model do
 
     it 'provision_user(username, password)' do
       expect(faraday_double).to receive(:post).and_return ''
-      Mqtt.provision_user('bob', 'bob')
+      Mqtt.provision_user('bob', 'bobpassword')
     end
   end
 end
