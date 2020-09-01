@@ -95,6 +95,9 @@ gem 'sidekiq'
 # API documentation
 gem 'apidoco'
 
+# for turn off sprockets error message
+gem "sprockets-rails", git: 'git://github.com/rails/sprockets-rails.git'
+
 group :production, :staging do
   # for heroku
   # gem 'newrelic_rpm'

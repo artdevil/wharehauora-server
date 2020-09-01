@@ -46,7 +46,7 @@ RSpec.describe Api::V1::HomesController, type: :controller do
       shared_examples 'response includes public homes' do
 
         describe 'response includes public home' do
-          
+
           let(:matching_home) { subject['data'].select { |home| home['id'] == public_home.id }.first }
 
           it { expect(matching_home).to include('id' => public_home.id) }
@@ -90,10 +90,10 @@ RSpec.describe Api::V1::HomesController, type: :controller do
         "gateway_mac_address": 'ABCDEF1010'
       }
     end
-  
+
     before do
       request.headers.merge! headers
-      post :create, { params: body }
+      post :create, **{ params: body }
     end
 
     it { expect(response).to have_http_status(:success) }
@@ -115,7 +115,7 @@ RSpec.describe Api::V1::HomesController, type: :controller do
 
     before do
       request.headers.merge! headers
-      patch :update, { params: body }
+      patch :update, **{ params: body }
     end
 
     it { expect(Home.find(my_home.id).name).to eq 'new home name' }

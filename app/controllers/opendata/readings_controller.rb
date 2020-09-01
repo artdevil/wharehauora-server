@@ -36,7 +36,7 @@ class Opendata::ReadingsController < ApplicationController
                   day: Time.zone.parse(day),
                   nextday: (Time.zone.parse(day) + 1.day))
            .where(key: key)
-           .group('room_types.name', "date_trunc('minute', readings.created_at)")
+           .group('room_types.name', Arel.sql("date_trunc('minute', readings.created_at)"))
            .median(:value)
   end
 end

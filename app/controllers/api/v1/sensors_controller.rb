@@ -16,7 +16,7 @@ class Api::V1::SensorsController < Api::BaseController
              policy_scope(Room).find_by(id: sensor_params[:room_id], home_id: @home.id)
            end
 
-    if @sensor.update_attributes(room: room)
+    if @sensor.update(room: room)
       respond_with(@sensor)
     else
       respond_form_with_error(@sensor.errors, params)

@@ -44,7 +44,7 @@ class ReadingsController < ApplicationController
         .where(key: key, room: @room)
         .order('readings.created_at')
         .limit(1000)
-        .pluck("date_trunc('minute', readings.created_at)",
+        .pluck(Arel.sql("date_trunc('minute', readings.created_at)"),
                'rooms.id as room_id', 'rooms.name', :value)
     end
   end

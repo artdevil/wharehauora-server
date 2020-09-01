@@ -10,7 +10,7 @@ namespace :readings do
             .where(key: key)
             .where('created_at > ?', newest_median.created_at) # reading created after the last aggregation run
             .where('created_at < ?', 2.hours.ago) # and the whole hour is in the past
-            .group("date_trunc('hour', created_at)")
+            .group(Arel.sql("date_trunc('hour', created_at)"))
             .median(:value).each do |ts, value|
           Reading.create!(key: "median_#{key}", value: value, created_at: ts, room: room)
         end

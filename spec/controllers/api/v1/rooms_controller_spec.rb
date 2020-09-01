@@ -11,7 +11,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   let(:owner)     { home.owner                                                             }
   let(:admin)     { FactoryBot.create :admin                                               }
   let(:otheruser) { FactoryBot.create :user                                                }
-  
+
   let(:whanau) do
     whanau = FactoryBot.create :user
     room.home.users << whanau
@@ -177,7 +177,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       let(:body) do
         {
-          'id': room.to_param, 
+          'id': room.to_param,
           'home_id': home.id,
           'name': 'new room name'
         }
@@ -185,7 +185,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       before do
         request.headers.merge! headers
-        patch :update, { params: body }
+        patch :update, **{ params: body }
       end
 
       it { expect(Room.find(room.id).name).to eq 'new room name' }
@@ -198,7 +198,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       let(:body) do
         {
-          'id': room.to_param, 
+          'id': room.to_param,
           'home_id': home.id,
           'name': ''
         }
@@ -206,7 +206,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       before do
         request.headers.merge! headers
-        patch :update, { params: body }
+        patch :update, **{ params: body }
       end
 
       it { expect(subject['success']).to eq false }
@@ -218,7 +218,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       let(:body) do
         {
-          'id': 1000, 
+          'id': 1000,
           'home_id': home.id,
           'name': ''
         }
@@ -226,7 +226,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       before do
         request.headers.merge! headers
-        patch :update, { params: body }
+        patch :update, **{ params: body }
       end
 
       it { expect(subject['success']).to eq false }

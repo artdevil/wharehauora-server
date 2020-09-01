@@ -15,7 +15,6 @@ RSpec.describe 'OAuth Authorization', type: :request do
     end
 
     it {
-      puts oauth_application.uid;
       expect(response.status).to eq 200
     }
     it { expect(authorize_response['access_token']).to be_present }

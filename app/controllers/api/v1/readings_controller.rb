@@ -35,7 +35,7 @@ class Api::V1::ReadingsController < Api::BaseController
         .where(key: @key, room: @room)
         .order('readings.created_at')
         .limit(1000)
-        .pluck("date_trunc('minute', readings.created_at)", :value)
+        .pluck(Arel.sql("date_trunc('minute', readings.created_at)"), :value)
     end
   end
 end

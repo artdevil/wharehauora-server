@@ -18,7 +18,7 @@ class Api::V1::RoomsController < Api::BaseController
   end
 
   def update
-    if @room.update_attributes(room_params)
+    if @room.update(room_params)
       respond_with(@room)
     else
       respond_form_with_error(@room.errors, room_params)

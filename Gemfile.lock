@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/rails/sprockets-rails.git
+  revision: c269f5e01fdffa5c41350e855183d94ff33d318a
+  specs:
+    sprockets-rails (3.2.1)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+
+GIT
   remote: https://github.com/wharehauora/pundit-resources
   revision: 7bf1dc0f6c13f38fa7e537e5da546ce8434844ec
   branch: rails-6
@@ -414,10 +423,6 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
     sql_queries_count (0.0.1)
       rails (> 3.0.0)
     sshkit (1.21.0)
@@ -531,6 +536,7 @@ DEPENDENCIES
   sidekiq
   slack-notifier
   spring
+  sprockets-rails!
   sql_queries_count
   timecop
   uglifier (>= 4.2.0)

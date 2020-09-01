@@ -29,7 +29,7 @@ class Api::V1::HomesController < Api::BaseController
   end
 
   def update
-    if @home.update_attributes(home_params)
+    if @home.update(home_params)
       respond_with(@home)
     else
       respond_form_with_error(@home.errors, home_params)
